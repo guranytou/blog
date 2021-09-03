@@ -3,12 +3,11 @@ name: github pages
 on:
   push:
     branches:
-      - main  # Set a branch to deploy
-  pull_request:
+      - main  # Set a branch name to trigger deployment
 
 jobs:
   deploy:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@v2
         with:
@@ -18,15 +17,14 @@ jobs:
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v2
         with:
-          hugo-version: 'latest'
-          # extended: true
+          hugo-version: '0.78.2'
 
       - name: Build
         run: hugo --minify
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
-        if: github.ref == 'refs/heads/main'
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./public
+          deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+          external_repository: guranytou/guranytou.github.io
+          publish_branch: main
