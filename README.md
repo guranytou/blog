@@ -1,0 +1,1 @@
+https://guranytou.github.io/blog/

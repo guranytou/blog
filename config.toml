@@ -1,0 +1,28 @@
+baseURL = 'https://guranytou.github.io/blog/'
+author = "guranytou"
+paginate = 3
+defaultContentLanguage = "ja"
+languageCode = "ja-jp"
+enableInlineShortcodes = true
+
+# ------------------------------
+theme = "paper"
+title = "しゅがーぽっと"
+
+[params]
+  twitter = 'gurany_tou'
+  github = 'guranytou'
+# ------------------------------
+
+[menu]
+
+  [[menu.main]]
+    identifier = "about"
+    name = "About"
+    url = "/about/"
+    weight = 10
+
+[taxonomies]
+category = "categories"
+tag = "tags"
+series = "series"
