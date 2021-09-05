@@ -3,7 +3,6 @@ author = "guranytou"
 paginate = 3
 defaultContentLanguage = "ja"
 languageCode = "ja-jp"
-enableInlineShortcodes = true
 
 # ------------------------------
 theme = "paper"
