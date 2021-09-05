@@ -22,5 +22,8 @@ jobs:
       - name: Build
         run: hugo --minify
       
-      - name: test
-        run: ls -la ./public
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+          external_repository: guranytou/guranytou.github.io
