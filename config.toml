@@ -1,4 +1,4 @@
-baseURL = 'https://guranytou.github.io/'
+baseURL = 'https://guranytou.github.io/blog/'
 author = "guranytou"
 paginate = 3
 defaultContentLanguage = "ja"
