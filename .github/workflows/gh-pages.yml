@@ -23,4 +23,4 @@ jobs:
         run: hugo --minify
       
       - name: test
-        run: ls -la
+        run: ls -la ./public
