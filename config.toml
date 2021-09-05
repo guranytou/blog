@@ -6,7 +6,7 @@ languageCode = "ja-jp"
 enableInlineShortcodes = true
 
 # ------------------------------
-theme = "paper"
+theme = "hugo-paper"
 title = "しゅがーぽっと"
 
 [params]
