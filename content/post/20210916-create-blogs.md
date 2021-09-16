@@ -1,7 +1,7 @@
 ---
 title: "Hugo + Github Pages + Github Actionsでブログを作った"
 date: 2021-09-16T22:49:02+09:00
-draft: true
+draft: false
 author: "guranytou"
 tags: ["Hugo", "Github Actions"]
 categories: ["tech"]
