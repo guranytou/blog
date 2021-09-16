@@ -1,7 +1,6 @@
 ---
 title: "Hugo + Github Pages + Github Actionsでブログを作った"
 date: 2021-09-16T22:49:02+09:00
-draft: false
 author: "guranytou"
 tags: ["Hugo", "Github Actions"]
 categories: ["tech"]
@@ -34,7 +33,7 @@ hugo new site blog
 
 次に好きなthemesを探してダウンロードする。  
 シンプルなデザインがよかったので、hugo-paperを選択した。  
-themesリポジトリ：https://github.com/nanxiaobei/hugo-paper
+themesリポジトリ：[https://github.com/nanxiaobei/hugo-paper](https://github.com/nanxiaobei/hugo-paper)
 ```
 git submodule add https://github.com/nanxiaobei/hugo-paper themes/paper
 ```
