@@ -1,0 +1,143 @@
+<!doctype html><html lang=ja-jp>
+<head>
+<meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge">
+<meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no">
+<title>Hugo + Github Pages + Github Actionsでブログを作った - しゅがーぽっと</title>
+<meta name=description content="まえがき Zenn.devに書くほどではないけど、自分では備忘録的なものが欲しくてブログを作った。
+そして作ってからn週間経ってようやく記事を書くのであった…。
+環境  Windows10 WSL2（Ubuntu20.04）  やったこと ざっくりとやったことをメモ。
+Hugoの導入 公式から最新版をインストールする。
+wget https://github.com/gohugoio/hugo/releases/download/v0.88.0/hugo_extended_0.88.0_Linux-64bit.deb sudo apt-get install ./hugo_extended_0.88.0_Linux-64bit.deb Hugoの設定 まずはサイトを新規作成する。
+hugo new site blog 次に好きなthemesを探してダウンロードする。
+シンプルなデザインがよかったので、hugo-paperを選択した。
+themesリポジトリ：https://github.com/nanxiaobei/hugo-paper
+git submodule add https://github.com/nanxiaobei/hugo-paper themes/paper あとはconfig.tomlを設定する（設定内容はthemesリポジトリを参考）。
+Github Actionsの設定 記事をpushしたら自動的にGithub Pagesに上げてほしかったので、Github Actionsを設定。 Hugo公式にyamlの書き方があるのでこれを参考にした。
+感想 途中何故かHugoのthemesがローカルでもGithub上でも反映されなくて困った。
+いろいろいじってたら反映されたけど、理由は不明のまま。。。">
+<meta name=author content="guranytou">
+<link rel="preload stylesheet" as=style href=https://guranytou.github.io/blog/app.min.css>
+<link rel="preload stylesheet" as=style href=https://guranytou.github.io/blog/an-old-hope.min.css>
+<script defer src=https://guranytou.github.io/blog/highlight.min.js onload=hljs.initHighlightingOnLoad()></script>
+<link rel=preload as=image href=https://guranytou.github.io/blog/theme.png>
+<link rel=preload as=image href=https://guranytou.github.io/blog/twitter.svg>
+<link rel=preload as=image href=https://guranytou.github.io/blog/github.svg>
+<link rel=icon href=https://guranytou.github.io/blog/favicon.ico>
+<link rel=apple-touch-icon href=https://guranytou.github.io/blog/apple-touch-icon.png>
+<meta name=generator content="Hugo 0.88.0">
+<meta property="og:title" content="Hugo + Github Pages + Github Actionsでブログを作った">
+<meta property="og:description" content="まえがき Zenn.devに書くほどではないけど、自分では備忘録的なものが欲しくてブログを作った。
+そして作ってからn週間経ってようやく記事を書くのであった…。
+環境  Windows10 WSL2（Ubuntu20.04）  やったこと ざっくりとやったことをメモ。
+Hugoの導入 公式から最新版をインストールする。
+wget https://github.com/gohugoio/hugo/releases/download/v0.88.0/hugo_extended_0.88.0_Linux-64bit.deb sudo apt-get install ./hugo_extended_0.88.0_Linux-64bit.deb Hugoの設定 まずはサイトを新規作成する。
+hugo new site blog 次に好きなthemesを探してダウンロードする。
+シンプルなデザインがよかったので、hugo-paperを選択した。
+themesリポジトリ：https://github.com/nanxiaobei/hugo-paper
+git submodule add https://github.com/nanxiaobei/hugo-paper themes/paper あとはconfig.tomlを設定する（設定内容はthemesリポジトリを参考）。
+Github Actionsの設定 記事をpushしたら自動的にGithub Pagesに上げてほしかったので、Github Actionsを設定。 Hugo公式にyamlの書き方があるのでこれを参考にした。
+感想 途中何故かHugoのthemesがローカルでもGithub上でも反映されなくて困った。
+いろいろいじってたら反映されたけど、理由は不明のまま。。。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://guranytou.github.io/blog/post/20210916-create-blogs/"><meta property="article:section" content="post">
+<meta property="article:published_time" content="2021-09-16T22:49:02+09:00">
+<meta property="article:modified_time" content="2021-09-16T22:49:02+09:00">
+<meta itemprop=name content="Hugo + Github Pages + Github Actionsでブログを作った">
+<meta itemprop=description content="まえがき Zenn.devに書くほどではないけど、自分では備忘録的なものが欲しくてブログを作った。
+そして作ってからn週間経ってようやく記事を書くのであった…。
+環境  Windows10 WSL2（Ubuntu20.04）  やったこと ざっくりとやったことをメモ。
+Hugoの導入 公式から最新版をインストールする。
+wget https://github.com/gohugoio/hugo/releases/download/v0.88.0/hugo_extended_0.88.0_Linux-64bit.deb sudo apt-get install ./hugo_extended_0.88.0_Linux-64bit.deb Hugoの設定 まずはサイトを新規作成する。
+hugo new site blog 次に好きなthemesを探してダウンロードする。
+シンプルなデザインがよかったので、hugo-paperを選択した。
+themesリポジトリ：https://github.com/nanxiaobei/hugo-paper
+git submodule add https://github.com/nanxiaobei/hugo-paper themes/paper あとはconfig.tomlを設定する（設定内容はthemesリポジトリを参考）。
+Github Actionsの設定 記事をpushしたら自動的にGithub Pagesに上げてほしかったので、Github Actionsを設定。 Hugo公式にyamlの書き方があるのでこれを参考にした。
+感想 途中何故かHugoのthemesがローカルでもGithub上でも反映されなくて困った。
+いろいろいじってたら反映されたけど、理由は不明のまま。。。"><meta itemprop=datePublished content="2021-09-16T22:49:02+09:00">
+<meta itemprop=dateModified content="2021-09-16T22:49:02+09:00">
+<meta itemprop=wordCount content="40">
+<meta itemprop=keywords content="Hugo,Github Actions,">
+<meta name=twitter:card content="summary">
+<meta name=twitter:title content="Hugo + Github Pages + Github Actionsでブログを作った">
+<meta name=twitter:description content="まえがき Zenn.devに書くほどではないけど、自分では備忘録的なものが欲しくてブログを作った。
+そして作ってからn週間経ってようやく記事を書くのであった…。
+環境  Windows10 WSL2（Ubuntu20.04）  やったこと ざっくりとやったことをメモ。
+Hugoの導入 公式から最新版をインストールする。
+wget https://github.com/gohugoio/hugo/releases/download/v0.88.0/hugo_extended_0.88.0_Linux-64bit.deb sudo apt-get install ./hugo_extended_0.88.0_Linux-64bit.deb Hugoの設定 まずはサイトを新規作成する。
+hugo new site blog 次に好きなthemesを探してダウンロードする。
+シンプルなデザインがよかったので、hugo-paperを選択した。
+themesリポジトリ：https://github.com/nanxiaobei/hugo-paper
+git submodule add https://github.com/nanxiaobei/hugo-paper themes/paper あとはconfig.tomlを設定する（設定内容はthemesリポジトリを参考）。
+Github Actionsの設定 記事をpushしたら自動的にGithub Pagesに上げてほしかったので、Github Actionsを設定。 Hugo公式にyamlの書き方があるのでこれを参考にした。
+感想 途中何故かHugoのthemesがローカルでもGithub上でも反映されなくて困った。
+いろいろいじってたら反映されたけど、理由は不明のまま。。。">
+</head>
+<body class=not-ready data-menu=true>
+<header class=header>
+<p class=logo>
+<a class=site-name href=https://guranytou.github.io/blog/>しゅがーぽっと</a><a class=btn-dark></a>
+</p>
+<script>let bodyClx=document.body.classList,btnDark=document.querySelector('.btn-dark'),sysDark=window.matchMedia('(prefers-color-scheme: dark)'),darkVal=localStorage.getItem('dark'),setDark=a=>{bodyClx[a?'add':'remove']('dark'),localStorage.setItem('dark',a?'yes':'no')};setDark(darkVal?darkVal==='yes':sysDark.matches),requestAnimationFrame(()=>bodyClx.remove('not-ready')),btnDark.addEventListener('click',()=>setDark(!bodyClx.contains('dark'))),sysDark.addEventListener('change',a=>setDark(a.matches))</script>
+<nav class=menu>
+<a href=/blog/about/>About</a>
+</nav>
+<nav class=social>
+<a class=twitter style=--url:url(./twitter.svg) href=https://twitter.com/gurany_tou target=_blank></a>
+<a class=github style=--url:url(./github.svg) href=https://github.com/guranytou target=_blank></a>
+</nav>
+</header>
+<main class=main>
+<article class=post-single>
+<header class=post-title>
+<aside>
+<time>September 16, 2021</time>
+<span>guranytou</span>
+</aside>
+<h1>Hugo + Github Pages + Github Actionsでブログを作った</h1>
+</header>
+<section class=post-content><h2 id=まえがき>まえがき</h2>
+<p>Zenn.devに書くほどではないけど、自分では備忘録的なものが欲しくてブログを作った。<br>
+そして作ってからn週間経ってようやく記事を書くのであった…。</p>
+<h2 id=環境>環境</h2>
+<ul>
+<li>Windows10</li>
+<li>WSL2（Ubuntu20.04）</li>
+</ul>
+<h2 id=やったこと>やったこと</h2>
+<p>ざっくりとやったことをメモ。</p>
+<h3 id=hugoの導入>Hugoの導入</h3>
+<p>公式から最新版をインストールする。</p>
+<pre tabindex=0><code>wget https://github.com/gohugoio/hugo/releases/download/v0.88.0/hugo_extended_0.88.0_Linux-64bit.deb
+sudo apt-get install ./hugo_extended_0.88.0_Linux-64bit.deb
+</code></pre><h3 id=hugoの設定>Hugoの設定</h3>
+<p>まずはサイトを新規作成する。</p>
+<pre tabindex=0><code>hugo new site blog
+</code></pre><p>次に好きなthemesを探してダウンロードする。<br>
+シンプルなデザインがよかったので、hugo-paperを選択した。<br>
+themesリポジトリ：<a href=https://github.com/nanxiaobei/hugo-paper>https://github.com/nanxiaobei/hugo-paper</a></p>
+<pre tabindex=0><code>git submodule add https://github.com/nanxiaobei/hugo-paper themes/paper
+</code></pre><p>あとはconfig.tomlを設定する（設定内容はthemesリポジトリを参考）。</p>
+<h3 id=github-actionsの設定>Github Actionsの設定</h3>
+<p>記事をpushしたら自動的にGithub Pagesに上げてほしかったので、Github Actionsを設定。
+<a href=https://gohugo.io/hosting-and-deployment/hosting-on-github/#build-hugo-with-github-action>Hugo公式</a>にyamlの書き方があるのでこれを参考にした。</p>
+<h2 id=感想>感想</h2>
+<p>途中何故かHugoのthemesがローカルでもGithub上でも反映されなくて困った。<br>
+いろいろいじってたら反映されたけど、理由は不明のまま。。。</p>
+</section>
+<footer class=post-tags>
+<a href=https://guranytou.github.io/blog/tags/hugo>Hugo</a>
+<a href=https://guranytou.github.io/blog/tags/github-actions>Github Actions</a>
+</footer>
+</article>
+</main>
+<footer class=footer>
+<p>&copy; 2021 <a href=https://guranytou.github.io/blog/>しゅがーぽっと</a></p>
+<p>Powered by <a href=https://gohugo.io/ rel=noopener target=_blank>Hugo️️</a>️</p>
+<p>
+<a href=https://github.com/nanxiaobei/hugo-paper rel=noopener target=_blank>Paper 5.0</a>
+</p>
+</footer>
+</body>
+</html>
