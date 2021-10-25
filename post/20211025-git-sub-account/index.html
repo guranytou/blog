@@ -3,7 +3,7 @@
 <meta charset=utf-8>
 <meta http-equiv=x-ua-compatible content="IE=edge">
 <meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no">
-<title>Git_sub_account - しゅがーぽっと</title>
+<title>Gitのサブアカウントを切り替える方法メモ - しゅがーぽっと</title>
 <meta name=description content="前書き 同じPC上で複数のgitアカウントを利用したくなったので、個人的に良さそうなアカウントの切り替え方法についてメモします。
 やり方  サブ用ディレクトリを作成する サブ用ディレクトリの中に.sshを作成し、鍵を生成する サブ用のgit configを作成し、設定を投入する。  # サブ用のgit configを作成 touch ~/.gitconfig_sub # 設定を投入する [user] name = [your_user_name] email = [your_email_address] ~/.gitconfigに設定を投入する  [includeIf &#34;gitdir:~/your/sub/dir&#34;] path = ~/.gitconfig_sub ~/.ssh/configに設定を投入する  Host github github.com HostName github.com IdentityFile ~/your/sub/dir/.ssh/id_rsa User git ">
 <meta name=author content="guranytou">
@@ -16,21 +16,21 @@
 <link rel=icon href=https://guranytou.github.io/blog/favicon.ico>
 <link rel=apple-touch-icon href=https://guranytou.github.io/blog/apple-touch-icon.png>
 <meta name=generator content="Hugo 0.88.0">
-<meta property="og:title" content="Git_sub_account">
+<meta property="og:title" content="Gitのサブアカウントを切り替える方法メモ">
 <meta property="og:description" content="前書き 同じPC上で複数のgitアカウントを利用したくなったので、個人的に良さそうなアカウントの切り替え方法についてメモします。
 やり方  サブ用ディレクトリを作成する サブ用ディレクトリの中に.sshを作成し、鍵を生成する サブ用のgit configを作成し、設定を投入する。  # サブ用のgit configを作成 touch ~/.gitconfig_sub # 設定を投入する [user] name = [your_user_name] email = [your_email_address] ~/.gitconfigに設定を投入する  [includeIf &#34;gitdir:~/your/sub/dir&#34;] path = ~/.gitconfig_sub ~/.ssh/configに設定を投入する  Host github github.com HostName github.com IdentityFile ~/your/sub/dir/.ssh/id_rsa User git ">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://guranytou.github.io/blog/post/20211025-git-sub-account/"><meta property="article:section" content="post">
 <meta property="article:published_time" content="2021-10-26T00:56:23+09:00">
 <meta property="article:modified_time" content="2021-10-26T00:56:23+09:00">
-<meta itemprop=name content="Git_sub_account">
+<meta itemprop=name content="Gitのサブアカウントを切り替える方法メモ">
 <meta itemprop=description content="前書き 同じPC上で複数のgitアカウントを利用したくなったので、個人的に良さそうなアカウントの切り替え方法についてメモします。
 やり方  サブ用ディレクトリを作成する サブ用ディレクトリの中に.sshを作成し、鍵を生成する サブ用のgit configを作成し、設定を投入する。  # サブ用のgit configを作成 touch ~/.gitconfig_sub # 設定を投入する [user] name = [your_user_name] email = [your_email_address] ~/.gitconfigに設定を投入する  [includeIf &#34;gitdir:~/your/sub/dir&#34;] path = ~/.gitconfig_sub ~/.ssh/configに設定を投入する  Host github github.com HostName github.com IdentityFile ~/your/sub/dir/.ssh/id_rsa User git "><meta itemprop=datePublished content="2021-10-26T00:56:23+09:00">
 <meta itemprop=dateModified content="2021-10-26T00:56:23+09:00">
 <meta itemprop=wordCount content="37">
 <meta itemprop=keywords content="git,">
 <meta name=twitter:card content="summary">
-<meta name=twitter:title content="Git_sub_account">
+<meta name=twitter:title content="Gitのサブアカウントを切り替える方法メモ">
 <meta name=twitter:description content="前書き 同じPC上で複数のgitアカウントを利用したくなったので、個人的に良さそうなアカウントの切り替え方法についてメモします。
 やり方  サブ用ディレクトリを作成する サブ用ディレクトリの中に.sshを作成し、鍵を生成する サブ用のgit configを作成し、設定を投入する。  # サブ用のgit configを作成 touch ~/.gitconfig_sub # 設定を投入する [user] name = [your_user_name] email = [your_email_address] ~/.gitconfigに設定を投入する  [includeIf &#34;gitdir:~/your/sub/dir&#34;] path = ~/.gitconfig_sub ~/.ssh/configに設定を投入する  Host github github.com HostName github.com IdentityFile ~/your/sub/dir/.ssh/id_rsa User git ">
 </head>
@@ -55,7 +55,7 @@
 <time>October 26, 2021</time>
 <span>guranytou</span>
 </aside>
-<h1>Git_sub_account</h1>
+<h1>Gitのサブアカウントを切り替える方法メモ</h1>
 </header>
 <section class=post-content><h1 id=前書き>前書き</h1>
 <p>同じPC上で複数のgitアカウントを利用したくなったので、個人的に良さそうなアカウントの切り替え方法についてメモします。</p>
