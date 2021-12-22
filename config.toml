@@ -21,6 +21,12 @@ title = "しゅがーぽっと"
     url = "/about/"
     weight = 10
 
+  [[menu.main]]
+    identifier = "resume"
+    name = ""
+    url = "/resume/"
+    weight = 10
+
 [taxonomies]
 category = "categories"
 tag = "tags"
