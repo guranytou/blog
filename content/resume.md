@@ -1,10 +1,4 @@
-+++
-title = "職務経歴書"
-description = "職務経歴書"
-date = "2021-12-21"
-aliases = ["resume"]
-author = "guranytou"
-+++
+# 職務経歴書
 ## 個人データ
 | key | value |
 | :-- | :-: |
