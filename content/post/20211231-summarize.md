@@ -1,7 +1,6 @@
 ---
 title: "今年の振り返りと来年の目標とか"
 date: 2021-12-31T12:39:34+09:00
-draft: true
 author: "guranytou"
 categories: ["diary"]
 ---
