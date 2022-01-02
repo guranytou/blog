@@ -16,4 +16,6 @@ jobs:
       - run: npm i -g md-to-pdf
       - run: npm install
       - run: md-to-pdf content/resume.md
-      - run: ls content/
+      - uses: actions/upload-artifact@v1
+        with:
+          path: content/resume.pdf
