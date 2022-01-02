@@ -13,9 +13,10 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: '14'
-      - run: npm i -g md-to-pdf
-      - run: md-to-pdf --md-file-encoding utf-8 content/resume.md
-      - uses: actions/upload-artifact@v1
-        with:
-          name: resume
-          path: ./content/resume.pdf
+      - run: cat content/resume.md
+      # - run: npm i -g md-to-pdf
+      # - run: md-to-pdf --md-file-encoding utf-8 content/resume.md
+      # - uses: actions/upload-artifact@v1
+      #   with:
+      #     name: resume
+      #     path: ./content/resume.pdf
