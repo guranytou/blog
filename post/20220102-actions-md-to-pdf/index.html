@@ -1,0 +1,143 @@
+<!doctype html><html lang=ja-jp>
+<head>
+<meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge">
+<meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no">
+<title>Github Actionsで職務経歴書.mdをPDFに変換するようにした話 - しゅがーぽっと</title>
+<meta name=description content="前書き 職務経歴書がだいぶ古くなっていたので、最新化ついでにGithub Pages化とPDF化すればいいじゃんと思い、.mdで作成しました。
+Github Pages化はこのブログ用のGithub Actionsを利用してできるようにしたので、今回はPDF化するactionを作ることにしました。
+コード name: md-to-pdf on: push: branches: - main paths: - &#34;content/resume.md&#34; jobs: build: runs-on: ubuntu-18.04 steps: - uses: actions/checkout@v2 - uses: actions/setup-node@v2 with: node-version: '14' - run: | sudo apt install fonts-noto npm install npm i -g md-to-pdf md-to-pdf content/resume.md - uses: actions/upload-artifact@v2 with: name: resume path: content/resume.pdf 軽い解説 on: push: branches: - main paths: - &#34;content/resume.md&#34; mainブランチにてresume.mdがpushされた時のみ動くようにしました。
+- uses: actions/setup-node@v2 with: node-version: '14' 今回はmd-to-pdfを利用してPDF化したかったので、動作に必要なnode.">
+<meta name=author content="guranytou">
+<link rel="preload stylesheet" as=style href=https://guranytou.github.io/blog/app.min.css>
+<link rel="preload stylesheet" as=style href=https://guranytou.github.io/blog/an-old-hope.min.css>
+<script defer src=https://guranytou.github.io/blog/highlight.min.js onload=hljs.initHighlightingOnLoad()></script>
+<link rel=preload as=image href=https://guranytou.github.io/blog/theme.png>
+<link rel=preload as=image href=https://guranytou.github.io/blog/twitter.svg>
+<link rel=preload as=image href=https://guranytou.github.io/blog/github.svg>
+<link rel=icon href=https://guranytou.github.io/blog/favicon.ico>
+<link rel=apple-touch-icon href=https://guranytou.github.io/blog/apple-touch-icon.png>
+<meta name=generator content="Hugo 0.88.0">
+<meta property="og:title" content="Github Actionsで職務経歴書.mdをPDFに変換するようにした話">
+<meta property="og:description" content="前書き 職務経歴書がだいぶ古くなっていたので、最新化ついでにGithub Pages化とPDF化すればいいじゃんと思い、.mdで作成しました。
+Github Pages化はこのブログ用のGithub Actionsを利用してできるようにしたので、今回はPDF化するactionを作ることにしました。
+コード name: md-to-pdf on: push: branches: - main paths: - &#34;content/resume.md&#34; jobs: build: runs-on: ubuntu-18.04 steps: - uses: actions/checkout@v2 - uses: actions/setup-node@v2 with: node-version: '14' - run: | sudo apt install fonts-noto npm install npm i -g md-to-pdf md-to-pdf content/resume.md - uses: actions/upload-artifact@v2 with: name: resume path: content/resume.pdf 軽い解説 on: push: branches: - main paths: - &#34;content/resume.md&#34; mainブランチにてresume.mdがpushされた時のみ動くようにしました。
+- uses: actions/setup-node@v2 with: node-version: '14' 今回はmd-to-pdfを利用してPDF化したかったので、動作に必要なnode.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://guranytou.github.io/blog/post/20220102-actions-md-to-pdf/"><meta property="article:section" content="post">
+<meta property="article:published_time" content="2022-01-02T17:27:08+09:00">
+<meta property="article:modified_time" content="2022-01-02T17:27:08+09:00">
+<meta itemprop=name content="Github Actionsで職務経歴書.mdをPDFに変換するようにした話">
+<meta itemprop=description content="前書き 職務経歴書がだいぶ古くなっていたので、最新化ついでにGithub Pages化とPDF化すればいいじゃんと思い、.mdで作成しました。
+Github Pages化はこのブログ用のGithub Actionsを利用してできるようにしたので、今回はPDF化するactionを作ることにしました。
+コード name: md-to-pdf on: push: branches: - main paths: - &#34;content/resume.md&#34; jobs: build: runs-on: ubuntu-18.04 steps: - uses: actions/checkout@v2 - uses: actions/setup-node@v2 with: node-version: '14' - run: | sudo apt install fonts-noto npm install npm i -g md-to-pdf md-to-pdf content/resume.md - uses: actions/upload-artifact@v2 with: name: resume path: content/resume.pdf 軽い解説 on: push: branches: - main paths: - &#34;content/resume.md&#34; mainブランチにてresume.mdがpushされた時のみ動くようにしました。
+- uses: actions/setup-node@v2 with: node-version: '14' 今回はmd-to-pdfを利用してPDF化したかったので、動作に必要なnode."><meta itemprop=datePublished content="2022-01-02T17:27:08+09:00">
+<meta itemprop=dateModified content="2022-01-02T17:27:08+09:00">
+<meta itemprop=wordCount content="103">
+<meta itemprop=keywords content="Github Actions,">
+<meta name=twitter:card content="summary">
+<meta name=twitter:title content="Github Actionsで職務経歴書.mdをPDFに変換するようにした話">
+<meta name=twitter:description content="前書き 職務経歴書がだいぶ古くなっていたので、最新化ついでにGithub Pages化とPDF化すればいいじゃんと思い、.mdで作成しました。
+Github Pages化はこのブログ用のGithub Actionsを利用してできるようにしたので、今回はPDF化するactionを作ることにしました。
+コード name: md-to-pdf on: push: branches: - main paths: - &#34;content/resume.md&#34; jobs: build: runs-on: ubuntu-18.04 steps: - uses: actions/checkout@v2 - uses: actions/setup-node@v2 with: node-version: '14' - run: | sudo apt install fonts-noto npm install npm i -g md-to-pdf md-to-pdf content/resume.md - uses: actions/upload-artifact@v2 with: name: resume path: content/resume.pdf 軽い解説 on: push: branches: - main paths: - &#34;content/resume.md&#34; mainブランチにてresume.mdがpushされた時のみ動くようにしました。
+- uses: actions/setup-node@v2 with: node-version: '14' 今回はmd-to-pdfを利用してPDF化したかったので、動作に必要なnode.">
+</head>
+<body class=not-ready data-menu=true>
+<header class=header>
+<p class=logo>
+<a class=site-name href=https://guranytou.github.io/blog/>しゅがーぽっと</a><a class=btn-dark></a>
+</p>
+<script>let bodyClx=document.body.classList,btnDark=document.querySelector('.btn-dark'),sysDark=window.matchMedia('(prefers-color-scheme: dark)'),darkVal=localStorage.getItem('dark'),setDark=a=>{bodyClx[a?'add':'remove']('dark'),localStorage.setItem('dark',a?'yes':'no')};setDark(darkVal?darkVal==='yes':sysDark.matches),requestAnimationFrame(()=>bodyClx.remove('not-ready')),btnDark.addEventListener('click',()=>setDark(!bodyClx.contains('dark'))),sysDark.addEventListener('change',a=>setDark(a.matches))</script>
+<nav class=menu>
+<a href=/blog/resume/></a>
+<a href=/blog/about/>About</a>
+</nav>
+<nav class=social>
+<a class=twitter style=--url:url(./twitter.svg) href=https://twitter.com/gurany_tou target=_blank></a>
+<a class=github style=--url:url(./github.svg) href=https://github.com/guranytou target=_blank></a>
+</nav>
+</header>
+<main class=main>
+<article class=post-single>
+<header class=post-title>
+<aside>
+<time>January 2, 2022</time>
+<span>guranytou</span>
+</aside>
+<h1>Github Actionsで職務経歴書.mdをPDFに変換するようにした話</h1>
+</header>
+<section class=post-content><h2 id=前書き>前書き</h2>
+<p>職務経歴書がだいぶ古くなっていたので、最新化ついでにGithub Pages化とPDF化すればいいじゃんと思い、.mdで作成しました。<br>
+Github Pages化はこのブログ用のGithub Actionsを利用してできるようにしたので、今回はPDF化するactionを作ることにしました。</p>
+<h2 id=コード>コード</h2>
+<pre tabindex=0><code>name: md-to-pdf
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - &quot;content/resume.md&quot;
+
+jobs:
+  build:
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+      - run: |
+          sudo apt install fonts-noto
+          npm install
+          npm i -g md-to-pdf
+          md-to-pdf content/resume.md
+      - uses: actions/upload-artifact@v2
+        with:
+          name: resume
+          path: content/resume.pdf
+</code></pre><h2 id=軽い解説>軽い解説</h2>
+<pre tabindex=0><code>on:
+  push:
+    branches:
+      - main
+    paths:
+      - &quot;content/resume.md&quot;
+</code></pre><p>mainブランチにてresume.mdがpushされた時のみ動くようにしました。</p>
+<pre tabindex=0><code>- uses: actions/setup-node@v2
+    with:
+        node-version: '14'
+</code></pre><p>今回は<a href=https://github.com/simonhaenisch/md-to-pdf>md-to-pdf</a>を利用してPDF化したかったので、動作に必要なnode.jsを準備します。</p>
+<pre tabindex=0><code>- run: |
+    sudo apt install fonts-noto
+    npm install
+    npm i -g md-to-pdf
+    md-to-pdf content/resume.md
+</code></pre><p>Ubuntuイメージにはデフォルトで日本語フォントが入っていないので、日本語フォントをインストール。<br>
+その後にmd-to-pdfをインストールし、md -> pdfに変換します。</p>
+<pre tabindex=0><code>- uses: actions/upload-artifact@v2
+with:
+    name: resume
+    path: content/resume.pdf
+</code></pre><p>変換したPDFをインストールしたいので、artifactとしてアップロードします。</p>
+<h2 id=まとめ>まとめ</h2>
+<p>ネットを調べると意外とmd-to-pdfをそのままGithub Actionsに組み込んで実施しているymlがなかったので記事にしました。<br>
+そのうちヘッダーに作成日、フッターにページ数を入れられるようにしたいなあと思います。</p>
+</section>
+<footer class=post-tags>
+<a href=https://guranytou.github.io/blog/tags/github-actions>Github Actions</a>
+</footer>
+<nav class=post-nav>
+<a class=next href=https://guranytou.github.io/blog/post/20211231-summarize/><span>今年の振り返りと来年の目標とか</span><span>→</span></a>
+</nav>
+</article>
+</main>
+<footer class=footer>
+<p>&copy; 2022 <a href=https://guranytou.github.io/blog/>しゅがーぽっと</a></p>
+<p>Powered by <a href=https://gohugo.io/ rel=noopener target=_blank>Hugo️️</a>️</p>
+<p>
+<a href=https://github.com/nanxiaobei/hugo-paper rel=noopener target=_blank>Paper 5.0</a>
+</p>
+</footer>
+</body>
+</html>
