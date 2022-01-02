@@ -19,5 +19,5 @@ jobs:
           md-to-pdf --md-file-encoding utf-8 content/resume.md
       - uses: actions/upload-artifact@v1
         with:
-          name: resume
+          name: resume.pdf
           path: ./content/resume.pdf
