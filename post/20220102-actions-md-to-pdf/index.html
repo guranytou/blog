@@ -70,7 +70,7 @@ Github Pages化はこのブログ用のGithub Actionsを利用してできるよ
 <p>職務経歴書がだいぶ古くなっていたので、最新化ついでにGithub Pages化とPDF化すればいいじゃんと思い、.mdで作成しました。<br>
 Github Pages化はこのブログ用のGithub Actionsを利用してできるようにしたので、今回はPDF化するactionを作ることにしました。</p>
 <h2 id=コード>コード</h2>
-<pre tabindex=0><code>name: md-to-pdf
+<pre tabindex=0><code class=language-yml:sample data-lang=yml:sample>name: md-to-pdf
 
 on:
   push:
@@ -97,25 +97,25 @@ jobs:
           name: resume
           path: content/resume.pdf
 </code></pre><h2 id=軽い解説>軽い解説</h2>
-<pre tabindex=0><code>on:
+<pre tabindex=0><code class=language-yml:sample data-lang=yml:sample>on:
   push:
     branches:
       - main
     paths:
       - &quot;content/resume.md&quot;
 </code></pre><p>mainブランチにてresume.mdがpushされた時のみ動くようにしました。</p>
-<pre tabindex=0><code>- uses: actions/setup-node@v2
+<pre tabindex=0><code class=language-yml:sample data-lang=yml:sample>- uses: actions/setup-node@v2
     with:
         node-version: '14'
 </code></pre><p>今回は<a href=https://github.com/simonhaenisch/md-to-pdf>md-to-pdf</a>を利用してPDF化したかったので、動作に必要なnode.jsを準備します。</p>
-<pre tabindex=0><code>- run: |
+<pre tabindex=0><code class=language-yml:sample data-lang=yml:sample>- run: |
     sudo apt install fonts-noto
     npm install
     npm i -g md-to-pdf
     md-to-pdf content/resume.md
 </code></pre><p>Ubuntuイメージにはデフォルトで日本語フォントが入っていないので、日本語フォントをインストール。<br>
 その後にmd-to-pdfをインストールし、md -> pdfに変換します。</p>
-<pre tabindex=0><code>- uses: actions/upload-artifact@v2
+<pre tabindex=0><code class=language-yml:sample data-lang=yml:sample>- uses: actions/upload-artifact@v2
 with:
     name: resume
     path: content/resume.pdf
