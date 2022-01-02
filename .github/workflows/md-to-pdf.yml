@@ -14,7 +14,7 @@ jobs:
         with:
           node-version: '14'
       - run: |
-          npm init
+          npm install
           npm i -g md-to-pdf
           md-to-pdf --md-file-encoding utf-8 content/resume.md
       - uses: actions/upload-artifact@v1
