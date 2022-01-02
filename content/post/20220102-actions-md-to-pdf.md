@@ -11,7 +11,7 @@ categories: ["tech"]
 Github Pages化はこのブログ用のGithub Actionsを利用してできるようにしたので、今回はPDF化するactionを作ることにしました。
 
 ## コード
-```
+```yml:sample
 name: md-to-pdf
 
 on:
@@ -41,7 +41,7 @@ jobs:
 ```
 
 ## 軽い解説
-```
+```yml:sample
 on:
   push:
     branches:
@@ -51,14 +51,14 @@ on:
 ```
 mainブランチにてresume.mdがpushされた時のみ動くようにしました。   
 
-```
+```yml:sample
 - uses: actions/setup-node@v2
     with:
         node-version: '14'
 ```
 今回は[md-to-pdf](https://github.com/simonhaenisch/md-to-pdf)を利用してPDF化したかったので、動作に必要なnode.jsを準備します。
 
-```
+```yml:sample
 - run: |
     sudo apt install fonts-noto
     npm install
@@ -68,7 +68,7 @@ mainブランチにてresume.mdがpushされた時のみ動くようにしまし
 Ubuntuイメージにはデフォルトで日本語フォントが入っていないので、日本語フォントをインストール。  
 その後にmd-to-pdfをインストールし、md -> pdfに変換します。
 
-```
+```yml:sample
 - uses: actions/upload-artifact@v2
 with:
     name: resume
