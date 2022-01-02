@@ -16,6 +16,7 @@ jobs:
       - run: |
           npm install
           npm i -g md-to-pdf
+          apt install poppler-utils
           md-to-pdf --md-file-encoding utf-8 content/resume.md
           pdftotext "content/resume.pdf" -
       # - uses: actions/upload-artifact@v1
