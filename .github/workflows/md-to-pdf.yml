@@ -2,8 +2,10 @@ name: md-to-pdf
 
 on:
   push:
+    branches:
+      - main
     paths:
-      - 'content/resume.md'
+      - "content/resume.md"
 
 jobs:
   build:
