@@ -2,8 +2,8 @@ name: md-to-pdf
 
 on:
   push:
-    # paths:
-    #   - 'content/resume.md'
+    paths:
+      - 'content/resume.md'
 
 jobs:
   build:
