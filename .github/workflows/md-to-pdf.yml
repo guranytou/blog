@@ -19,7 +19,7 @@ jobs:
           sudo apt install poppler-utils
           md-to-pdf --md-file-encoding utf-8 content/resume.md
           pdftotext "content/resume.pdf" -
-      # - uses: actions/upload-artifact@v1
-      #   with:
-      #     name: resume
-      #     path: ./content/resume.pdf
+      - uses: actions/upload-artifact@v2
+        with:
+          name: resume
+          path: ./content/resume.pdf
