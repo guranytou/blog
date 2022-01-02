@@ -18,4 +18,5 @@ jobs:
       - run: md-to-pdf content/resume.md
       - uses: actions/upload-artifact@v1
         with:
+          name: resume
           path: ./content/resume.pdf
