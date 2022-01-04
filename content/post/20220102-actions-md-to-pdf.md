@@ -74,7 +74,7 @@ with:
     name: resume
     path: content/resume.pdf
 ```
-変換したPDFをインストールしたいので、artifactとしてアップロードします。
+変換したPDFをダウンロードしたいので、artifactとしてアップロードします。
 
 ## まとめ
 ネットを調べると意外とmd-to-pdfをそのままGithub Actionsに組み込んで実施しているymlがなかったので記事にしました。  
