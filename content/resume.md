@@ -113,10 +113,10 @@ ECサイトの構築及び運用を行う
     - Node.js
     - Go（個人開発）
 - インフラ
- - 業務経歴は1年ほどです。
- - インフラの設計やIaCでのコードの読み書き・設計ができます
-  - AWS（VPC/IAM/EC2/RDS/ECS/ELB/Route53/ACM）
-  - Terraform
+  - 業務経歴は1年ほどです。
+  - インフラの設計やIaCでのコードの読み書き・設計ができます
+    - AWS（VPC/IAM/EC2/RDS/ECS/ELB/Route53/ACM）
+    - Terraform
 - ネットワーク
   - 業務経歴は1年半ほどです
   - 一般的なネットワーク知識（TCP/IPなど）があります
