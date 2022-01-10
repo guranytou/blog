@@ -1,0 +1,172 @@
+<!doctype html><html lang=ja-jp>
+<head>
+<meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge">
+<meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no">
+<title>天気予報CLIを作るついでに色々勉強した話 - しゅがーぽっと</title>
+<meta name=description content="はじめに 外部APIを利用してCLI作りをしたいなあと思い、天気予報を確認できるCLIを作ることにしました。
+$ tenki tokyo,jp 時刻: 2022-01-10 17:14:44 +0900 JST 場所: Tokyo 天気: くもり 気温: 8.1 コードの解説 本体のコードはこちら: Github
+Weather MAP APIを利用する APIのtokenを環境変数に格納する Githubに上げるにあたり、tokenは環境変数にしたいなと思いました。
+なので、godotenvを利用して.envに格納したtokenを呼び出しています。
+err := godotenv.Load(&#34;.env&#34;) if err != nil { panic(&#34;Error loading .env file&#34;) } token := os.Getenv(&#34;API_TOKEN&#34;) API_TOKEN=YOUR_TOKEN 都市情報の設定とWeather MAP APIへクエリを投げる 今回のCLIでは tenki tokyo,jpのように都市名をコマンドで投げるとその都市の天気予報が見れるように、またtenkiのみで投げた場合には東京の天気を見れるようにしたいと思いました。
+そのためWeather MAP APIに天気予報を確認したい都市を投げるために、以下のようにしました。
+values := url.Values{} values.Set(&#34;APPID&#34;, token) if city == &#34;&#34; { values.Set(&#34;q&#34;, &#34;tokyo,jp&#34;) } else { values.Set(&#34;q&#34;, city) } そして以下のように整形し、Weather MAP APIを投げています。">
+<meta name=author content>
+<link rel="preload stylesheet" as=style href=https://guranytou.github.io/blog/app.min.css>
+<link rel="preload stylesheet" as=style href=https://guranytou.github.io/blog/an-old-hope.min.css>
+<script defer src=https://guranytou.github.io/blog/highlight.min.js onload=hljs.initHighlightingOnLoad()></script>
+<link rel=preload as=image href=https://guranytou.github.io/blog/theme.png>
+<link rel=preload as=image href=https://guranytou.github.io/blog/twitter.svg>
+<link rel=preload as=image href=https://guranytou.github.io/blog/github.svg>
+<link rel=icon href=https://guranytou.github.io/blog/favicon.ico>
+<link rel=apple-touch-icon href=https://guranytou.github.io/blog/apple-touch-icon.png>
+<meta name=generator content="Hugo 0.88.0">
+<meta property="og:title" content="天気予報CLIを作るついでに色々勉強した話">
+<meta property="og:description" content="はじめに 外部APIを利用してCLI作りをしたいなあと思い、天気予報を確認できるCLIを作ることにしました。
+$ tenki tokyo,jp 時刻: 2022-01-10 17:14:44 +0900 JST 場所: Tokyo 天気: くもり 気温: 8.1 コードの解説 本体のコードはこちら: Github
+Weather MAP APIを利用する APIのtokenを環境変数に格納する Githubに上げるにあたり、tokenは環境変数にしたいなと思いました。
+なので、godotenvを利用して.envに格納したtokenを呼び出しています。
+err := godotenv.Load(&#34;.env&#34;) if err != nil { panic(&#34;Error loading .env file&#34;) } token := os.Getenv(&#34;API_TOKEN&#34;) API_TOKEN=YOUR_TOKEN 都市情報の設定とWeather MAP APIへクエリを投げる 今回のCLIでは tenki tokyo,jpのように都市名をコマンドで投げるとその都市の天気予報が見れるように、またtenkiのみで投げた場合には東京の天気を見れるようにしたいと思いました。
+そのためWeather MAP APIに天気予報を確認したい都市を投げるために、以下のようにしました。
+values := url.Values{} values.Set(&#34;APPID&#34;, token) if city == &#34;&#34; { values.Set(&#34;q&#34;, &#34;tokyo,jp&#34;) } else { values.Set(&#34;q&#34;, city) } そして以下のように整形し、Weather MAP APIを投げています。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://guranytou.github.io/blog/post/20220110-create-tenki-cli/"><meta property="article:section" content="post">
+<meta property="article:published_time" content="2022-01-10T17:00:20+09:00">
+<meta property="article:modified_time" content="2022-01-10T17:00:20+09:00">
+<meta itemprop=name content="天気予報CLIを作るついでに色々勉強した話">
+<meta itemprop=description content="はじめに 外部APIを利用してCLI作りをしたいなあと思い、天気予報を確認できるCLIを作ることにしました。
+$ tenki tokyo,jp 時刻: 2022-01-10 17:14:44 +0900 JST 場所: Tokyo 天気: くもり 気温: 8.1 コードの解説 本体のコードはこちら: Github
+Weather MAP APIを利用する APIのtokenを環境変数に格納する Githubに上げるにあたり、tokenは環境変数にしたいなと思いました。
+なので、godotenvを利用して.envに格納したtokenを呼び出しています。
+err := godotenv.Load(&#34;.env&#34;) if err != nil { panic(&#34;Error loading .env file&#34;) } token := os.Getenv(&#34;API_TOKEN&#34;) API_TOKEN=YOUR_TOKEN 都市情報の設定とWeather MAP APIへクエリを投げる 今回のCLIでは tenki tokyo,jpのように都市名をコマンドで投げるとその都市の天気予報が見れるように、またtenkiのみで投げた場合には東京の天気を見れるようにしたいと思いました。
+そのためWeather MAP APIに天気予報を確認したい都市を投げるために、以下のようにしました。
+values := url.Values{} values.Set(&#34;APPID&#34;, token) if city == &#34;&#34; { values.Set(&#34;q&#34;, &#34;tokyo,jp&#34;) } else { values.Set(&#34;q&#34;, city) } そして以下のように整形し、Weather MAP APIを投げています。"><meta itemprop=datePublished content="2022-01-10T17:00:20+09:00">
+<meta itemprop=dateModified content="2022-01-10T17:00:20+09:00">
+<meta itemprop=wordCount content="187">
+<meta itemprop=keywords content>
+<meta name=twitter:card content="summary">
+<meta name=twitter:title content="天気予報CLIを作るついでに色々勉強した話">
+<meta name=twitter:description content="はじめに 外部APIを利用してCLI作りをしたいなあと思い、天気予報を確認できるCLIを作ることにしました。
+$ tenki tokyo,jp 時刻: 2022-01-10 17:14:44 +0900 JST 場所: Tokyo 天気: くもり 気温: 8.1 コードの解説 本体のコードはこちら: Github
+Weather MAP APIを利用する APIのtokenを環境変数に格納する Githubに上げるにあたり、tokenは環境変数にしたいなと思いました。
+なので、godotenvを利用して.envに格納したtokenを呼び出しています。
+err := godotenv.Load(&#34;.env&#34;) if err != nil { panic(&#34;Error loading .env file&#34;) } token := os.Getenv(&#34;API_TOKEN&#34;) API_TOKEN=YOUR_TOKEN 都市情報の設定とWeather MAP APIへクエリを投げる 今回のCLIでは tenki tokyo,jpのように都市名をコマンドで投げるとその都市の天気予報が見れるように、またtenkiのみで投げた場合には東京の天気を見れるようにしたいと思いました。
+そのためWeather MAP APIに天気予報を確認したい都市を投げるために、以下のようにしました。
+values := url.Values{} values.Set(&#34;APPID&#34;, token) if city == &#34;&#34; { values.Set(&#34;q&#34;, &#34;tokyo,jp&#34;) } else { values.Set(&#34;q&#34;, city) } そして以下のように整形し、Weather MAP APIを投げています。">
+</head>
+<body class=not-ready data-menu=true>
+<header class=header>
+<p class=logo>
+<a class=site-name href=https://guranytou.github.io/blog/>しゅがーぽっと</a><a class=btn-dark></a>
+</p>
+<script>let bodyClx=document.body.classList,btnDark=document.querySelector('.btn-dark'),sysDark=window.matchMedia('(prefers-color-scheme: dark)'),darkVal=localStorage.getItem('dark'),setDark=a=>{bodyClx[a?'add':'remove']('dark'),localStorage.setItem('dark',a?'yes':'no')};setDark(darkVal?darkVal==='yes':sysDark.matches),requestAnimationFrame(()=>bodyClx.remove('not-ready')),btnDark.addEventListener('click',()=>setDark(!bodyClx.contains('dark'))),sysDark.addEventListener('change',a=>setDark(a.matches))</script>
+<nav class=menu>
+<a href=/blog/resume/></a>
+<a href=/blog/about/>About</a>
+</nav>
+<nav class=social>
+<a class=twitter style=--url:url(./twitter.svg) href=https://twitter.com/gurany_tou target=_blank></a>
+<a class=github style=--url:url(./github.svg) href=https://github.com/guranytou target=_blank></a>
+</nav>
+</header>
+<main class=main>
+<article class=post-single>
+<header class=post-title>
+<aside>
+<time>January 10, 2022</time>
+</aside>
+<h1>天気予報CLIを作るついでに色々勉強した話</h1>
+</header>
+<section class=post-content><h2 id=はじめに>はじめに</h2>
+<p>外部APIを利用してCLI作りをしたいなあと思い、天気予報を確認できるCLIを作ることにしました。</p>
+<pre tabindex=0><code class=language-bash:表示例 data-lang=bash:表示例>$ tenki tokyo,jp
+時刻: 2022-01-10 17:14:44 +0900 JST
+場所: Tokyo
+天気: くもり
+気温: 8.1
+</code></pre><h2 id=コードの解説>コードの解説</h2>
+<p>本体のコードはこちら: <a href=https://github.com/guranytou/GoStudy/tree/master/tenki>Github</a></p>
+<h3 id=weather-map-apiを利用する>Weather MAP APIを利用する</h3>
+<h4 id=apiのtokenを環境変数に格納する>APIのtokenを環境変数に格納する</h4>
+<p>Githubに上げるにあたり、tokenは環境変数にしたいなと思いました。<br>
+なので、<code>godotenv</code>を利用して.envに格納したtokenを呼び出しています。</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-go data-lang=go>	<span style=color:#a6e22e>err</span> <span style=color:#f92672>:=</span> <span style=color:#a6e22e>godotenv</span>.<span style=color:#a6e22e>Load</span>(<span style=color:#e6db74>&#34;.env&#34;</span>)
+	<span style=color:#66d9ef>if</span> <span style=color:#a6e22e>err</span> <span style=color:#f92672>!=</span> <span style=color:#66d9ef>nil</span> {
+		panic(<span style=color:#e6db74>&#34;Error loading .env file&#34;</span>)
+	}
+	<span style=color:#a6e22e>token</span> <span style=color:#f92672>:=</span> <span style=color:#a6e22e>os</span>.<span style=color:#a6e22e>Getenv</span>(<span style=color:#e6db74>&#34;API_TOKEN&#34;</span>)
+</code></pre></div><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-env data-lang=env>API_TOKEN<span style=color:#f92672>=</span>YOUR_TOKEN
+</code></pre></div><h4 id=都市情報の設定とweather-map-apiへクエリを投げる>都市情報の設定とWeather MAP APIへクエリを投げる</h4>
+<p>今回のCLIでは <code>tenki tokyo,jp</code>のように都市名をコマンドで投げるとその都市の天気予報が見れるように、また<code>tenki</code>のみで投げた場合には東京の天気を見れるようにしたいと思いました。<br>
+そのためWeather MAP APIに天気予報を確認したい都市を投げるために、以下のようにしました。</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-go data-lang=go>	<span style=color:#a6e22e>values</span> <span style=color:#f92672>:=</span> <span style=color:#a6e22e>url</span>.<span style=color:#a6e22e>Values</span>{}
+	<span style=color:#a6e22e>values</span>.<span style=color:#a6e22e>Set</span>(<span style=color:#e6db74>&#34;APPID&#34;</span>, <span style=color:#a6e22e>token</span>)
+	<span style=color:#66d9ef>if</span> <span style=color:#a6e22e>city</span> <span style=color:#f92672>==</span> <span style=color:#e6db74>&#34;&#34;</span> {
+		<span style=color:#a6e22e>values</span>.<span style=color:#a6e22e>Set</span>(<span style=color:#e6db74>&#34;q&#34;</span>, <span style=color:#e6db74>&#34;tokyo,jp&#34;</span>)
+	} <span style=color:#66d9ef>else</span> {
+		<span style=color:#a6e22e>values</span>.<span style=color:#a6e22e>Set</span>(<span style=color:#e6db74>&#34;q&#34;</span>, <span style=color:#a6e22e>city</span>)
+	}
+</code></pre></div><p>そして以下のように整形し、Weather MAP APIを投げています。</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-go data-lang=go>	<span style=color:#a6e22e>endPoint</span> <span style=color:#f92672>:=</span> <span style=color:#e6db74>&#34;https://api.openweathermap.org/data/2.5/weather&#34;</span>
+
+	<span style=color:#a6e22e>resp</span>, <span style=color:#a6e22e>err</span> <span style=color:#f92672>:=</span> <span style=color:#a6e22e>http</span>.<span style=color:#a6e22e>Get</span>(<span style=color:#a6e22e>endPoint</span> <span style=color:#f92672>+</span> <span style=color:#e6db74>&#34;?&#34;</span> <span style=color:#f92672>+</span> <span style=color:#a6e22e>values</span>.<span style=color:#a6e22e>Encode</span>())
+	<span style=color:#66d9ef>if</span> <span style=color:#a6e22e>err</span> <span style=color:#f92672>!=</span> <span style=color:#66d9ef>nil</span> {
+		panic(<span style=color:#a6e22e>err</span>)
+	}
+	<span style=color:#66d9ef>defer</span> <span style=color:#a6e22e>resp</span>.<span style=color:#a6e22e>Body</span>.<span style=color:#a6e22e>Close</span>()
+</code></pre></div><h4 id=天気情報を受け取って表示する>天気情報を受け取って表示する</h4>
+<p>現在時刻、場所、天気、気温を表示するようにしたかったため、以下の構造体を準備しました。</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-go data-lang=go><span style=color:#66d9ef>type</span> <span style=color:#a6e22e>OWMAPIResponce</span> <span style=color:#66d9ef>struct</span> {
+	<span style=color:#a6e22e>Weather</span> []<span style=color:#a6e22e>Weather</span> <span style=color:#e6db74>`json:&#34;weather&#34;`</span>
+	<span style=color:#a6e22e>Main</span>    <span style=color:#a6e22e>Main</span>      <span style=color:#e6db74>`json:&#34;main&#34;`</span>
+	<span style=color:#a6e22e>Dt</span>      <span style=color:#66d9ef>int64</span>     <span style=color:#e6db74>`json:&#34;dt`</span>
+	<span style=color:#a6e22e>Name</span>    <span style=color:#66d9ef>string</span>    <span style=color:#e6db74>`json:&#34;name&#34;`</span>
+}
+
+<span style=color:#66d9ef>type</span> <span style=color:#a6e22e>Main</span> <span style=color:#66d9ef>struct</span> {
+	<span style=color:#a6e22e>Temp</span> <span style=color:#66d9ef>float64</span> <span style=color:#e6db74>`json:&#34;temp&#34;`</span>
+}
+
+<span style=color:#66d9ef>type</span> <span style=color:#a6e22e>Weather</span> <span style=color:#66d9ef>struct</span> {
+	<span style=color:#a6e22e>Main</span>        <span style=color:#66d9ef>string</span> <span style=color:#e6db74>`json:&#34;main&#34;`</span>
+	<span style=color:#a6e22e>Description</span> <span style=color:#66d9ef>string</span> <span style=color:#e6db74>`json:&#34;description&#34;`</span>
+}
+</code></pre></div><p>天気情報は日本語にしたかったのと、気温は摂氏表示にしたかったので、表示するにあたり以下のようにしています。</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-go data-lang=go>	<span style=color:#a6e22e>fmt</span>.<span style=color:#a6e22e>Printf</span>(<span style=color:#e6db74>&#34;時刻: %s\n&#34;</span>, <span style=color:#a6e22e>time</span>.<span style=color:#a6e22e>Unix</span>(<span style=color:#a6e22e>apiRes</span>.<span style=color:#a6e22e>Dt</span>, <span style=color:#ae81ff>0</span>))
+	<span style=color:#a6e22e>fmt</span>.<span style=color:#a6e22e>Printf</span>(<span style=color:#e6db74>&#34;場所: %s\n&#34;</span>, <span style=color:#a6e22e>apiRes</span>.<span style=color:#a6e22e>Name</span>)
+
+	<span style=color:#66d9ef>if</span> <span style=color:#a6e22e>apiRes</span>.<span style=color:#a6e22e>Weather</span>[<span style=color:#ae81ff>0</span>].<span style=color:#a6e22e>Main</span> <span style=color:#f92672>==</span> <span style=color:#e6db74>&#34;Clear&#34;</span> {
+		<span style=color:#a6e22e>fmt</span>.<span style=color:#a6e22e>Println</span>(<span style=color:#e6db74>&#34;天気: 晴れ&#34;</span>)
+	} <span style=color:#66d9ef>else</span> <span style=color:#66d9ef>if</span> <span style=color:#a6e22e>apiRes</span>.<span style=color:#a6e22e>Weather</span>[<span style=color:#ae81ff>0</span>].<span style=color:#a6e22e>Main</span> <span style=color:#f92672>==</span> <span style=color:#e6db74>&#34;Clouds&#34;</span> {
+		<span style=color:#a6e22e>fmt</span>.<span style=color:#a6e22e>Println</span>(<span style=color:#e6db74>&#34;天気: くもり&#34;</span>)
+	} <span style=color:#66d9ef>else</span> <span style=color:#66d9ef>if</span> <span style=color:#a6e22e>apiRes</span>.<span style=color:#a6e22e>Weather</span>[<span style=color:#ae81ff>0</span>].<span style=color:#a6e22e>Main</span> <span style=color:#f92672>==</span> <span style=color:#e6db74>&#34;Rain&#34;</span> {
+		<span style=color:#a6e22e>fmt</span>.<span style=color:#a6e22e>Println</span>(<span style=color:#e6db74>&#34;天気: 雨&#34;</span>)
+	} <span style=color:#66d9ef>else</span> <span style=color:#66d9ef>if</span> <span style=color:#a6e22e>apiRes</span>.<span style=color:#a6e22e>Weather</span>[<span style=color:#ae81ff>0</span>].<span style=color:#a6e22e>Main</span> <span style=color:#f92672>==</span> <span style=color:#e6db74>&#34;Snow&#34;</span> {
+		<span style=color:#a6e22e>fmt</span>.<span style=color:#a6e22e>Println</span>(<span style=color:#e6db74>&#34;天気: 雪&#34;</span>)
+	} <span style=color:#66d9ef>else</span> {
+		<span style=color:#a6e22e>fmt</span>.<span style=color:#a6e22e>Printf</span>(<span style=color:#e6db74>&#34;天気: %s\n&#34;</span>, <span style=color:#a6e22e>apiRes</span>.<span style=color:#a6e22e>Weather</span>[<span style=color:#ae81ff>0</span>].<span style=color:#a6e22e>Main</span>)
+	}
+
+	<span style=color:#a6e22e>fmt</span>.<span style=color:#a6e22e>Printf</span>(<span style=color:#e6db74>&#34;気温: %g\n&#34;</span>, <span style=color:#a6e22e>math</span>.<span style=color:#a6e22e>Floor</span>((<span style=color:#a6e22e>apiRes</span>.<span style=color:#a6e22e>Main</span>.<span style=color:#a6e22e>Temp</span><span style=color:#f92672>-</span><span style=color:#ae81ff>273.15</span>)<span style=color:#f92672>*</span><span style=color:#ae81ff>10</span>)<span style=color:#f92672>/</span><span style=color:#ae81ff>10</span>)
+</code></pre></div><h3 id=やってみて感想>やってみて感想</h3>
+<ul>
+<li>JSONを取り出す際には必要な情報だけで良い（いらない情報は定義しなくていい）ことがわかったのでなるほどと思いました</li>
+<li>godotenvとても便利</li>
+</ul>
+<p>次はTerraform関連のツールを「車輪の再実装」して勉強してみようと思います。<br>
+もしくはToDoアプリをまた作ってみて、API作りについて理解を深めるか。</p>
+</section>
+<nav class=post-nav>
+<a class=next href=https://guranytou.github.io/blog/post/20220102-actions-md-to-pdf/><span>Github Actionsで職務経歴書.mdをPDFに変換するようにした話</span><span>→</span></a>
+</nav>
+</article>
+</main>
+<footer class=footer>
+<p>&copy; 2022 <a href=https://guranytou.github.io/blog/>しゅがーぽっと</a></p>
+<p>Powered by <a href=https://gohugo.io/ rel=noopener target=_blank>Hugo️️</a>️</p>
+<p>
+<a href=https://github.com/nanxiaobei/hugo-paper rel=noopener target=_blank>Paper 5.0</a>
+</p>
+</footer>
+</body>
+</html>
