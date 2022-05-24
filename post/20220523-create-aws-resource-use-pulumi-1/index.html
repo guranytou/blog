@@ -11,7 +11,8 @@ brew install pulumi チュートリアル https://www.pulumi.com/docs/get-starte
 このページにチュートリアルがあるのでこのガイドに従ってやっていきました（内容は割愛します）
 試し書き チュートリアルでS3バケットを作ることができました。
 ということで、試しに公式Docを読みながらVPCを1つ作成してみます。
- コードを準備する  package main import ( &#34;github.com/pulumi/pulumi-aws/sdk/v5/go/aws/ec2&#34; &#34;github.com/pulumi/pulumi/sdk/v3/go/pulumi&#34; ) func main() { pulumi.Run(func(ctx *pulumi.Context) error { vpc, err := ec2.NewVpc(ctx, &#34;example_vpc&#34;, &ec2.VpcArgs{ CidrBlock: pulumi.String(&#34;10.100.0.0/16&#34;), Tags: pulumi.StringMap{ &#34;Name&#34;: pulumi.String(&#34;example_vpc&#34;), }, }) if err != nil { return err } ctx.Export(&#34;vpcid: &#34;, vpc.ID()) return nil }) } pulumi previewで見てみる pulumi previewを実行し、作成できるか確認してみます。  > pulumi preview Previewing update (dev) View Live: https://app.">
+ コードを準備する  package main import ( &#34;github.com/pulumi/pulumi-aws/sdk/v5/go/aws/ec2&#34; &#34;github.com/pulumi/pulumi/sdk/v3/go/pulumi&#34; ) func main() { pulumi.Run(func(ctx *pulumi.Context) error { vpc, err := ec2.NewVpc(ctx, &#34;example_vpc&#34;, &ec2.VpcArgs{ CidrBlock: pulumi.String(&#34;10.100.0.0/16&#34;), Tags: pulumi.StringMap{ &#34;Name&#34;: pulumi.String(&#34;example_vpc&#34;), }, }) if err != nil { return err } ctx.Export(&#34;vpcid: &#34;, vpc.ID()) return nil }) } pulumi previewで見てみる
+pulumi previewを実行し、作成できるか確認してみます。  > pulumi preview Previewing update (dev) View Live: https://app.">
 <meta name=author content="guranytou">
 <link rel="preload stylesheet" as=style href=https://guranytou.github.io/blog/app.min.css>
 <link rel="preload stylesheet" as=style href=https://guranytou.github.io/blog/an-old-hope.min.css>
@@ -30,7 +31,8 @@ brew install pulumi チュートリアル https://www.pulumi.com/docs/get-starte
 このページにチュートリアルがあるのでこのガイドに従ってやっていきました（内容は割愛します）
 試し書き チュートリアルでS3バケットを作ることができました。
 ということで、試しに公式Docを読みながらVPCを1つ作成してみます。
- コードを準備する  package main import ( &#34;github.com/pulumi/pulumi-aws/sdk/v5/go/aws/ec2&#34; &#34;github.com/pulumi/pulumi/sdk/v3/go/pulumi&#34; ) func main() { pulumi.Run(func(ctx *pulumi.Context) error { vpc, err := ec2.NewVpc(ctx, &#34;example_vpc&#34;, &ec2.VpcArgs{ CidrBlock: pulumi.String(&#34;10.100.0.0/16&#34;), Tags: pulumi.StringMap{ &#34;Name&#34;: pulumi.String(&#34;example_vpc&#34;), }, }) if err != nil { return err } ctx.Export(&#34;vpcid: &#34;, vpc.ID()) return nil }) } pulumi previewで見てみる pulumi previewを実行し、作成できるか確認してみます。  > pulumi preview Previewing update (dev) View Live: https://app.">
+ コードを準備する  package main import ( &#34;github.com/pulumi/pulumi-aws/sdk/v5/go/aws/ec2&#34; &#34;github.com/pulumi/pulumi/sdk/v3/go/pulumi&#34; ) func main() { pulumi.Run(func(ctx *pulumi.Context) error { vpc, err := ec2.NewVpc(ctx, &#34;example_vpc&#34;, &ec2.VpcArgs{ CidrBlock: pulumi.String(&#34;10.100.0.0/16&#34;), Tags: pulumi.StringMap{ &#34;Name&#34;: pulumi.String(&#34;example_vpc&#34;), }, }) if err != nil { return err } ctx.Export(&#34;vpcid: &#34;, vpc.ID()) return nil }) } pulumi previewで見てみる
+pulumi previewを実行し、作成できるか確認してみます。  > pulumi preview Previewing update (dev) View Live: https://app.">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://guranytou.github.io/blog/post/20220523-create-aws-resource-use-pulumi-1/"><meta property="article:section" content="post">
 <meta property="article:published_time" content="2022-05-23T09:55:46+09:00">
@@ -43,7 +45,8 @@ brew install pulumi チュートリアル https://www.pulumi.com/docs/get-starte
 このページにチュートリアルがあるのでこのガイドに従ってやっていきました（内容は割愛します）
 試し書き チュートリアルでS3バケットを作ることができました。
 ということで、試しに公式Docを読みながらVPCを1つ作成してみます。
- コードを準備する  package main import ( &#34;github.com/pulumi/pulumi-aws/sdk/v5/go/aws/ec2&#34; &#34;github.com/pulumi/pulumi/sdk/v3/go/pulumi&#34; ) func main() { pulumi.Run(func(ctx *pulumi.Context) error { vpc, err := ec2.NewVpc(ctx, &#34;example_vpc&#34;, &ec2.VpcArgs{ CidrBlock: pulumi.String(&#34;10.100.0.0/16&#34;), Tags: pulumi.StringMap{ &#34;Name&#34;: pulumi.String(&#34;example_vpc&#34;), }, }) if err != nil { return err } ctx.Export(&#34;vpcid: &#34;, vpc.ID()) return nil }) } pulumi previewで見てみる pulumi previewを実行し、作成できるか確認してみます。  > pulumi preview Previewing update (dev) View Live: https://app."><meta itemprop=datePublished content="2022-05-23T09:55:46+09:00">
+ コードを準備する  package main import ( &#34;github.com/pulumi/pulumi-aws/sdk/v5/go/aws/ec2&#34; &#34;github.com/pulumi/pulumi/sdk/v3/go/pulumi&#34; ) func main() { pulumi.Run(func(ctx *pulumi.Context) error { vpc, err := ec2.NewVpc(ctx, &#34;example_vpc&#34;, &ec2.VpcArgs{ CidrBlock: pulumi.String(&#34;10.100.0.0/16&#34;), Tags: pulumi.StringMap{ &#34;Name&#34;: pulumi.String(&#34;example_vpc&#34;), }, }) if err != nil { return err } ctx.Export(&#34;vpcid: &#34;, vpc.ID()) return nil }) } pulumi previewで見てみる
+pulumi previewを実行し、作成できるか確認してみます。  > pulumi preview Previewing update (dev) View Live: https://app."><meta itemprop=datePublished content="2022-05-23T09:55:46+09:00">
 <meta itemprop=dateModified content="2022-05-23T09:55:46+09:00">
 <meta itemprop=wordCount content="159">
 <meta itemprop=keywords content="Pulumi,AWS,Go,">
@@ -56,7 +59,8 @@ brew install pulumi チュートリアル https://www.pulumi.com/docs/get-starte
 このページにチュートリアルがあるのでこのガイドに従ってやっていきました（内容は割愛します）
 試し書き チュートリアルでS3バケットを作ることができました。
 ということで、試しに公式Docを読みながらVPCを1つ作成してみます。
- コードを準備する  package main import ( &#34;github.com/pulumi/pulumi-aws/sdk/v5/go/aws/ec2&#34; &#34;github.com/pulumi/pulumi/sdk/v3/go/pulumi&#34; ) func main() { pulumi.Run(func(ctx *pulumi.Context) error { vpc, err := ec2.NewVpc(ctx, &#34;example_vpc&#34;, &ec2.VpcArgs{ CidrBlock: pulumi.String(&#34;10.100.0.0/16&#34;), Tags: pulumi.StringMap{ &#34;Name&#34;: pulumi.String(&#34;example_vpc&#34;), }, }) if err != nil { return err } ctx.Export(&#34;vpcid: &#34;, vpc.ID()) return nil }) } pulumi previewで見てみる pulumi previewを実行し、作成できるか確認してみます。  > pulumi preview Previewing update (dev) View Live: https://app.">
+ コードを準備する  package main import ( &#34;github.com/pulumi/pulumi-aws/sdk/v5/go/aws/ec2&#34; &#34;github.com/pulumi/pulumi/sdk/v3/go/pulumi&#34; ) func main() { pulumi.Run(func(ctx *pulumi.Context) error { vpc, err := ec2.NewVpc(ctx, &#34;example_vpc&#34;, &ec2.VpcArgs{ CidrBlock: pulumi.String(&#34;10.100.0.0/16&#34;), Tags: pulumi.StringMap{ &#34;Name&#34;: pulumi.String(&#34;example_vpc&#34;), }, }) if err != nil { return err } ctx.Export(&#34;vpcid: &#34;, vpc.ID()) return nil }) } pulumi previewで見てみる
+pulumi previewを実行し、作成できるか確認してみます。  > pulumi preview Previewing update (dev) View Live: https://app.">
 </head>
 <body class=not-ready data-menu=true>
 <header class=header>
@@ -121,7 +125,7 @@ brew install pulumi チュートリアル https://www.pulumi.com/docs/get-starte
 	})
 }
 </code></pre></div><ol start=2>
-<li><code>pulumi preview</code>で見てみる
+<li><code>pulumi preview</code>で見てみる<br>
 <code>pulumi preview</code>を実行し、作成できるか確認してみます。</li>
 </ol>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>&gt; pulumi preview
@@ -167,7 +171,7 @@ Resources:
 
 Duration: 6s
 </code></pre></div><ol start=4>
-<li>コンソール上で確認してみる
+<li>コンソール上で確認してみる<br>
 無事にできていることがわかりました。
 <img src=https://raw.githubusercontent.com/guranytou/blog/main/content/post/image/image_202205241031.png alt=AWSコンソールでの確認結果></li>
 </ol>
