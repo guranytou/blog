@@ -45,7 +45,7 @@ brew install pulumi チュートリアル https://www.pulumi.com/docs/get-starte
 ということで、試しに公式Docを読みながらVPCを1つ作成してみます。
  コードを準備する  package main import ( &#34;github.com/pulumi/pulumi-aws/sdk/v5/go/aws/ec2&#34; &#34;github.com/pulumi/pulumi/sdk/v3/go/pulumi&#34; ) func main() { pulumi.Run(func(ctx *pulumi.Context) error { vpc, err := ec2.NewVpc(ctx, &#34;example_vpc&#34;, &ec2.VpcArgs{ CidrBlock: pulumi.String(&#34;10.100.0.0/16&#34;), Tags: pulumi.StringMap{ &#34;Name&#34;: pulumi.String(&#34;example_vpc&#34;), }, }) if err != nil { return err } ctx.Export(&#34;vpcid: &#34;, vpc.ID()) return nil }) } pulumi previewで見てみる pulumi previewを実行し、作成できるか確認してみます。  > pulumi preview Previewing update (dev) View Live: https://app."><meta itemprop=datePublished content="2022-05-23T09:55:46+09:00">
 <meta itemprop=dateModified content="2022-05-23T09:55:46+09:00">
-<meta itemprop=wordCount content="161">
+<meta itemprop=wordCount content="159">
 <meta itemprop=keywords content="Pulumi,AWS,Go,">
 <meta name=twitter:card content="summary">
 <meta name=twitter:title content="Pulumiを利用してAWS上でWebサーバ一式を立ててみた その１">
@@ -169,7 +169,7 @@ Duration: 6s
 </code></pre></div><ol start=4>
 <li>コンソール上で確認してみる
 無事にできていることがわかりました。
-(<a href=https://github.com/guranytou/blog/blob/main/content/post/image/image_202205241031.png>https://github.com/guranytou/blog/blob/main/content/post/image/image_202205241031.png</a> &ldquo;AWSコンソールでの確認結果&rdquo;)</li>
+<img src=https://github.com/guranytou/blog/blob/main/content/post/image/image_202205241031.png alt=AWSコンソールでの確認結果></li>
 </ol>
 <h2 id=まとめ>まとめ</h2>
 <p>Terraformと似たような感じで書けるので、そこまで苦労しませんでした。<br>
