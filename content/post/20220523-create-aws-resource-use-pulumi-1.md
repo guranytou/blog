@@ -101,7 +101,7 @@ Duration: 6s
 
 4. コンソール上で確認してみる
 無事にできていることがわかりました。
-(https://github.com/guranytou/blog/blob/main/content/post/image/image_202205241031.png "AWSコンソールでの確認結果")
+![AWSコンソールでの確認結果](https://github.com/guranytou/blog/blob/main/content/post/image/image_202205241031.png)
 
 ## まとめ
 Terraformと似たような感じで書けるので、そこまで苦労しませんでした。  
