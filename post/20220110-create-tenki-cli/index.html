@@ -11,7 +11,7 @@ Weather MAP APIを利用する APIのtokenを環境変数に格納する Github�
 err := godotenv.Load(&#34;.env&#34;) if err != nil { panic(&#34;Error loading .env file&#34;) } token := os.Getenv(&#34;API_TOKEN&#34;) API_TOKEN=YOUR_TOKEN 都市情報の設定とWeather MAP APIへクエリを投げる 今回のCLIでは tenki tokyo,jpのように都市名をコマンドで投げるとその都市の天気予報が見れるように、またtenkiのみで投げた場合には東京の天気を見れるようにしたいと思いました。
 そのためWeather MAP APIに天気予報を確認したい都市を投げるために、以下のようにしました。
 values := url.Values{} values.Set(&#34;APPID&#34;, token) if city == &#34;&#34; { values.Set(&#34;q&#34;, &#34;tokyo,jp&#34;) } else { values.Set(&#34;q&#34;, city) } そして以下のように整形し、Weather MAP APIを投げています。">
-<meta name=author content>
+<meta name=author content="guranytou">
 <link rel="preload stylesheet" as=style href=https://guranytou.github.io/blog/app.min.css>
 <link rel="preload stylesheet" as=style href=https://guranytou.github.io/blog/an-old-hope.min.css>
 <script defer src=https://guranytou.github.io/blog/highlight.min.js onload=hljs.initHighlightingOnLoad()></script>
@@ -43,7 +43,7 @@ err := godotenv.Load(&#34;.env&#34;) if err != nil { panic(&#34;Error loading .e
 values := url.Values{} values.Set(&#34;APPID&#34;, token) if city == &#34;&#34; { values.Set(&#34;q&#34;, &#34;tokyo,jp&#34;) } else { values.Set(&#34;q&#34;, city) } そして以下のように整形し、Weather MAP APIを投げています。"><meta itemprop=datePublished content="2022-01-10T17:00:20+09:00">
 <meta itemprop=dateModified content="2022-01-10T17:00:20+09:00">
 <meta itemprop=wordCount content="187">
-<meta itemprop=keywords content>
+<meta itemprop=keywords content="Go,">
 <meta name=twitter:card content="summary">
 <meta name=twitter:title content="天気予報CLIを作るついでに色々勉強した話">
 <meta name=twitter:description content="はじめに 外部APIを利用してCLI作りをしたいなあと思い、天気予報を確認できるCLIを作ることにしました。
@@ -74,6 +74,7 @@ values := url.Values{} values.Set(&#34;APPID&#34;, token) if city == &#34;&#34; 
 <header class=post-title>
 <aside>
 <time>January 10, 2022</time>
+<span>guranytou</span>
 </aside>
 <h1>天気予報CLIを作るついでに色々勉強した話</h1>
 </header>
@@ -156,6 +157,9 @@ values := url.Values{} values.Set(&#34;APPID&#34;, token) if city == &#34;&#34; 
 <p>次はTerraform関連のツールを「車輪の再実装」して勉強してみようと思います。<br>
 もしくはToDoアプリをまた作ってみて、API作りについて理解を深めるか。</p>
 </section>
+<footer class=post-tags>
+<a href=https://guranytou.github.io/blog/tags/go>Go</a>
+</footer>
 <nav class=post-nav>
 <a class=next href=https://guranytou.github.io/blog/post/20220102-actions-md-to-pdf/><span>Github Actionsで職務経歴書.mdをPDFに変換するようにした話</span><span>→</span></a>
 </nav>
