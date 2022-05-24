@@ -1,6 +1,9 @@
 ---
 title: "天気予報CLIを作るついでに色々勉強した話"
 date: 2022-01-10T17:00:20+09:00
+author: "guranytou"
+tags: ["Go"]
+categories: ["Tech"]
 ---
 
 ## はじめに
