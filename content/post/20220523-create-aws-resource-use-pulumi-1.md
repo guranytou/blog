@@ -51,7 +51,7 @@ func main() {
 }
 ```
 
-2. `pulumi preview`で見てみる
+2. `pulumi preview`で見てみる  
 `pulumi preview`を実行し、作成できるか確認してみます。
 ```bash
 > pulumi preview
@@ -67,7 +67,7 @@ Resources:
     + 2 to create
 ```
 
-3. `pulumi up`で実際に作成する
+3. `pulumi up`で実際に作成する  
 ```bash
 > pulumi up
 Previewing update (dev)
@@ -99,7 +99,7 @@ Resources:
 Duration: 6s
 ```
 
-4. コンソール上で確認してみる
+4. コンソール上で確認してみる  
 無事にできていることがわかりました。
 ![AWSコンソールでの確認結果](https://raw.githubusercontent.com/guranytou/blog/main/content/post/image/image_202205241031.png)
 
