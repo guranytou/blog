@@ -1,0 +1,393 @@
+<!doctype html><html lang=ja-jp>
+<head>
+<meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge">
+<meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no">
+<title>Pulumiを利用してAWS上でWebサーバ一式を立ててみた その２ - しゅがーぽっと</title>
+<meta name=description content="前回： Pulumiを利用してAWS上でWebサーバ一式を立ててみた その１
+はじめに 今回は実際にALB-EC2でWebサーバを立ててみます。
+構成は以前Terraformで作成したものと同じものとします。
+今回のソースコード：Github
+書いたコードの解説  ネットワーク周りのコードを作成する
+VPC、Subnetを作成します。  pulumi.Run(func(ctx *pulumi.Context) error { vpc, err := ec2.NewVpc(ctx, &#34;example_vpc&#34;, &ec2.VpcArgs{ CidrBlock: pulumi.String(&#34;10.100.0.0/16&#34;), Tags: pulumi.StringMap{ &#34;Name&#34;: pulumi.String(&#34;example_vpc&#34;), }, }) if err != nil { return err } pubSub1a, err := ec2.NewSubnet(ctx, &#34;pubSub1a&#34;, &ec2.SubnetArgs{ VpcId: vpc.ID(), CidrBlock: pulumi.String(&#34;10.100.0.0/24&#34;), AvailabilityZone: pulumi.String(&#34;ap-northeast-1a&#34;), Tags: pulumi.StringMap{ &#34;Name&#34;: pulumi.String(&#34;example_public_1a&#34;), }, }) if err != nil { return err } pubSub1c, err := ec2.NewSubnet(ctx, &#34;pubSub1c&#34;, &ec2.SubnetArgs{ VpcId: vpc.">
+<meta name=author content="guranytou">
+<link rel="preload stylesheet" as=style href=https://guranytou.github.io/blog/app.min.css>
+<link rel="preload stylesheet" as=style href=https://guranytou.github.io/blog/an-old-hope.min.css>
+<script defer src=https://guranytou.github.io/blog/highlight.min.js onload=hljs.initHighlightingOnLoad()></script>
+<link rel=preload as=image href=https://guranytou.github.io/blog/theme.png>
+<link rel=preload as=image href=https://guranytou.github.io/blog/twitter.svg>
+<link rel=preload as=image href=https://guranytou.github.io/blog/github.svg>
+<link rel=icon href=https://guranytou.github.io/blog/favicon.ico>
+<link rel=apple-touch-icon href=https://guranytou.github.io/blog/apple-touch-icon.png>
+<meta name=generator content="Hugo 0.88.0">
+<meta property="og:title" content="Pulumiを利用してAWS上でWebサーバ一式を立ててみた その２">
+<meta property="og:description" content="前回： Pulumiを利用してAWS上でWebサーバ一式を立ててみた その１
+はじめに 今回は実際にALB-EC2でWebサーバを立ててみます。
+構成は以前Terraformで作成したものと同じものとします。
+今回のソースコード：Github
+書いたコードの解説  ネットワーク周りのコードを作成する
+VPC、Subnetを作成します。  pulumi.Run(func(ctx *pulumi.Context) error { vpc, err := ec2.NewVpc(ctx, &#34;example_vpc&#34;, &ec2.VpcArgs{ CidrBlock: pulumi.String(&#34;10.100.0.0/16&#34;), Tags: pulumi.StringMap{ &#34;Name&#34;: pulumi.String(&#34;example_vpc&#34;), }, }) if err != nil { return err } pubSub1a, err := ec2.NewSubnet(ctx, &#34;pubSub1a&#34;, &ec2.SubnetArgs{ VpcId: vpc.ID(), CidrBlock: pulumi.String(&#34;10.100.0.0/24&#34;), AvailabilityZone: pulumi.String(&#34;ap-northeast-1a&#34;), Tags: pulumi.StringMap{ &#34;Name&#34;: pulumi.String(&#34;example_public_1a&#34;), }, }) if err != nil { return err } pubSub1c, err := ec2.NewSubnet(ctx, &#34;pubSub1c&#34;, &ec2.SubnetArgs{ VpcId: vpc.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://guranytou.github.io/blog/post/20220527-create-aws-resource-use-pulumi-2/"><meta property="article:section" content="post">
+<meta property="article:published_time" content="2022-05-27T00:33:09+09:00">
+<meta property="article:modified_time" content="2022-05-27T00:33:09+09:00">
+<meta itemprop=name content="Pulumiを利用してAWS上でWebサーバ一式を立ててみた その２">
+<meta itemprop=description content="前回： Pulumiを利用してAWS上でWebサーバ一式を立ててみた その１
+はじめに 今回は実際にALB-EC2でWebサーバを立ててみます。
+構成は以前Terraformで作成したものと同じものとします。
+今回のソースコード：Github
+書いたコードの解説  ネットワーク周りのコードを作成する
+VPC、Subnetを作成します。  pulumi.Run(func(ctx *pulumi.Context) error { vpc, err := ec2.NewVpc(ctx, &#34;example_vpc&#34;, &ec2.VpcArgs{ CidrBlock: pulumi.String(&#34;10.100.0.0/16&#34;), Tags: pulumi.StringMap{ &#34;Name&#34;: pulumi.String(&#34;example_vpc&#34;), }, }) if err != nil { return err } pubSub1a, err := ec2.NewSubnet(ctx, &#34;pubSub1a&#34;, &ec2.SubnetArgs{ VpcId: vpc.ID(), CidrBlock: pulumi.String(&#34;10.100.0.0/24&#34;), AvailabilityZone: pulumi.String(&#34;ap-northeast-1a&#34;), Tags: pulumi.StringMap{ &#34;Name&#34;: pulumi.String(&#34;example_public_1a&#34;), }, }) if err != nil { return err } pubSub1c, err := ec2.NewSubnet(ctx, &#34;pubSub1c&#34;, &ec2.SubnetArgs{ VpcId: vpc."><meta itemprop=datePublished content="2022-05-27T00:33:09+09:00">
+<meta itemprop=dateModified content="2022-05-27T00:33:09+09:00">
+<meta itemprop=wordCount content="597">
+<meta itemprop=keywords content="Pulumi,AWS,Go,">
+<meta name=twitter:card content="summary">
+<meta name=twitter:title content="Pulumiを利用してAWS上でWebサーバ一式を立ててみた その２">
+<meta name=twitter:description content="前回： Pulumiを利用してAWS上でWebサーバ一式を立ててみた その１
+はじめに 今回は実際にALB-EC2でWebサーバを立ててみます。
+構成は以前Terraformで作成したものと同じものとします。
+今回のソースコード：Github
+書いたコードの解説  ネットワーク周りのコードを作成する
+VPC、Subnetを作成します。  pulumi.Run(func(ctx *pulumi.Context) error { vpc, err := ec2.NewVpc(ctx, &#34;example_vpc&#34;, &ec2.VpcArgs{ CidrBlock: pulumi.String(&#34;10.100.0.0/16&#34;), Tags: pulumi.StringMap{ &#34;Name&#34;: pulumi.String(&#34;example_vpc&#34;), }, }) if err != nil { return err } pubSub1a, err := ec2.NewSubnet(ctx, &#34;pubSub1a&#34;, &ec2.SubnetArgs{ VpcId: vpc.ID(), CidrBlock: pulumi.String(&#34;10.100.0.0/24&#34;), AvailabilityZone: pulumi.String(&#34;ap-northeast-1a&#34;), Tags: pulumi.StringMap{ &#34;Name&#34;: pulumi.String(&#34;example_public_1a&#34;), }, }) if err != nil { return err } pubSub1c, err := ec2.NewSubnet(ctx, &#34;pubSub1c&#34;, &ec2.SubnetArgs{ VpcId: vpc.">
+</head>
+<body class=not-ready data-menu=true>
+<header class=header>
+<p class=logo>
+<a class=site-name href=https://guranytou.github.io/blog/>しゅがーぽっと</a><a class=btn-dark></a>
+</p>
+<script>let bodyClx=document.body.classList,btnDark=document.querySelector('.btn-dark'),sysDark=window.matchMedia('(prefers-color-scheme: dark)'),darkVal=localStorage.getItem('dark'),setDark=a=>{bodyClx[a?'add':'remove']('dark'),localStorage.setItem('dark',a?'yes':'no')};setDark(darkVal?darkVal==='yes':sysDark.matches),requestAnimationFrame(()=>bodyClx.remove('not-ready')),btnDark.addEventListener('click',()=>setDark(!bodyClx.contains('dark'))),sysDark.addEventListener('change',a=>setDark(a.matches))</script>
+<nav class=menu>
+<a href=/blog/resume/></a>
+<a href=/blog/about/>About</a>
+</nav>
+<nav class=social>
+<a class=twitter style=--url:url(./twitter.svg) href=https://twitter.com/gurany_tou target=_blank></a>
+<a class=github style=--url:url(./github.svg) href=https://github.com/guranytou target=_blank></a>
+</nav>
+</header>
+<main class=main>
+<article class=post-single>
+<header class=post-title>
+<aside>
+<time>May 27, 2022</time>
+<span>guranytou</span>
+</aside>
+<h1>Pulumiを利用してAWS上でWebサーバ一式を立ててみた その２</h1>
+</header>
+<section class=post-content><p>前回： <a href=https://guranytou.github.io/blog/post/20220523-create-aws-resource-use-pulumi-1/>Pulumiを利用してAWS上でWebサーバ一式を立ててみた その１</a></p>
+<h2 id=はじめに>はじめに</h2>
+<p>今回は実際にALB-EC2でWebサーバを立ててみます。<br>
+構成は<a href=https://zenn.dev/guranytou/articles/7e6680fc93ce16>以前Terraformで作成したもの</a>と同じものとします。<br>
+今回のソースコード：<a href=https://github.com/guranytou/TestPulumi>Github</a></p>
+<h2 id=書いたコードの解説>書いたコードの解説</h2>
+<ol>
+<li>ネットワーク周りのコードを作成する<br>
+VPC、Subnetを作成します。</li>
+</ol>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-go data-lang=go>	<span style=color:#a6e22e>pulumi</span>.<span style=color:#a6e22e>Run</span>(<span style=color:#66d9ef>func</span>(<span style=color:#a6e22e>ctx</span> <span style=color:#f92672>*</span><span style=color:#a6e22e>pulumi</span>.<span style=color:#a6e22e>Context</span>) <span style=color:#66d9ef>error</span> {
+		<span style=color:#a6e22e>vpc</span>, <span style=color:#a6e22e>err</span> <span style=color:#f92672>:=</span> <span style=color:#a6e22e>ec2</span>.<span style=color:#a6e22e>NewVpc</span>(<span style=color:#a6e22e>ctx</span>, <span style=color:#e6db74>&#34;example_vpc&#34;</span>, <span style=color:#f92672>&amp;</span><span style=color:#a6e22e>ec2</span>.<span style=color:#a6e22e>VpcArgs</span>{
+			<span style=color:#a6e22e>CidrBlock</span>: <span style=color:#a6e22e>pulumi</span>.<span style=color:#a6e22e>String</span>(<span style=color:#e6db74>&#34;10.100.0.0/16&#34;</span>),
+			<span style=color:#a6e22e>Tags</span>: <span style=color:#a6e22e>pulumi</span>.<span style=color:#a6e22e>StringMap</span>{
+				<span style=color:#e6db74>&#34;Name&#34;</span>: <span style=color:#a6e22e>pulumi</span>.<span style=color:#a6e22e>String</span>(<span style=color:#e6db74>&#34;example_vpc&#34;</span>),
+			},
+		})
+		<span style=color:#66d9ef>if</span> <span style=color:#a6e22e>err</span> <span style=color:#f92672>!=</span> <span style=color:#66d9ef>nil</span> {
+			<span style=color:#66d9ef>return</span> <span style=color:#a6e22e>err</span>
+		}
+
+		<span style=color:#a6e22e>pubSub1a</span>, <span style=color:#a6e22e>err</span> <span style=color:#f92672>:=</span> <span style=color:#a6e22e>ec2</span>.<span style=color:#a6e22e>NewSubnet</span>(<span style=color:#a6e22e>ctx</span>, <span style=color:#e6db74>&#34;pubSub1a&#34;</span>, <span style=color:#f92672>&amp;</span><span style=color:#a6e22e>ec2</span>.<span style=color:#a6e22e>SubnetArgs</span>{
+			<span style=color:#a6e22e>VpcId</span>:            <span style=color:#a6e22e>vpc</span>.<span style=color:#a6e22e>ID</span>(),
+			<span style=color:#a6e22e>CidrBlock</span>:        <span style=color:#a6e22e>pulumi</span>.<span style=color:#a6e22e>String</span>(<span style=color:#e6db74>&#34;10.100.0.0/24&#34;</span>),
+			<span style=color:#a6e22e>AvailabilityZone</span>: <span style=color:#a6e22e>pulumi</span>.<span style=color:#a6e22e>String</span>(<span style=color:#e6db74>&#34;ap-northeast-1a&#34;</span>),
+			<span style=color:#a6e22e>Tags</span>: <span style=color:#a6e22e>pulumi</span>.<span style=color:#a6e22e>StringMap</span>{
+				<span style=color:#e6db74>&#34;Name&#34;</span>: <span style=color:#a6e22e>pulumi</span>.<span style=color:#a6e22e>String</span>(<span style=color:#e6db74>&#34;example_public_1a&#34;</span>),
+			},
+		})
+		<span style=color:#66d9ef>if</span> <span style=color:#a6e22e>err</span> <span style=color:#f92672>!=</span> <span style=color:#66d9ef>nil</span> {
+			<span style=color:#66d9ef>return</span> <span style=color:#a6e22e>err</span>
+		}
+
+		<span style=color:#a6e22e>pubSub1c</span>, <span style=color:#a6e22e>err</span> <span style=color:#f92672>:=</span> <span style=color:#a6e22e>ec2</span>.<span style=color:#a6e22e>NewSubnet</span>(<span style=color:#a6e22e>ctx</span>, <span style=color:#e6db74>&#34;pubSub1c&#34;</span>, <span style=color:#f92672>&amp;</span><span style=color:#a6e22e>ec2</span>.<span style=color:#a6e22e>SubnetArgs</span>{
+			<span style=color:#a6e22e>VpcId</span>:            <span style=color:#a6e22e>vpc</span>.<span style=color:#a6e22e>ID</span>(),
+			<span style=color:#a6e22e>CidrBlock</span>:        <span style=color:#a6e22e>pulumi</span>.<span style=color:#a6e22e>String</span>(<span style=color:#e6db74>&#34;10.100.1.0/24&#34;</span>),
+			<span style=color:#a6e22e>AvailabilityZone</span>: <span style=color:#a6e22e>pulumi</span>.<span style=color:#a6e22e>String</span>(<span style=color:#e6db74>&#34;ap-northeast-1c&#34;</span>),
+			<span style=color:#a6e22e>Tags</span>: <span style=color:#a6e22e>pulumi</span>.<span style=color:#a6e22e>StringMap</span>{
+				<span style=color:#e6db74>&#34;Name&#34;</span>: <span style=color:#a6e22e>pulumi</span>.<span style=color:#a6e22e>String</span>(<span style=color:#e6db74>&#34;example_public_1c&#34;</span>),
+			},
+		})
+		<span style=color:#66d9ef>if</span> <span style=color:#a6e22e>err</span> <span style=color:#f92672>!=</span> <span style=color:#66d9ef>nil</span> {
+			<span style=color:#66d9ef>return</span> <span style=color:#a6e22e>err</span>
+		}
+
+		<span style=color:#a6e22e>priSub1a</span>, <span style=color:#a6e22e>err</span> <span style=color:#f92672>:=</span> <span style=color:#a6e22e>ec2</span>.<span style=color:#a6e22e>NewSubnet</span>(<span style=color:#a6e22e>ctx</span>, <span style=color:#e6db74>&#34;priSub1a&#34;</span>, <span style=color:#f92672>&amp;</span><span style=color:#a6e22e>ec2</span>.<span style=color:#a6e22e>SubnetArgs</span>{
+			<span style=color:#a6e22e>VpcId</span>:            <span style=color:#a6e22e>vpc</span>.<span style=color:#a6e22e>ID</span>(),
+			<span style=color:#a6e22e>CidrBlock</span>:        <span style=color:#a6e22e>pulumi</span>.<span style=color:#a6e22e>String</span>(<span style=color:#e6db74>&#34;10.100.100.0/24&#34;</span>),
+			<span style=color:#a6e22e>AvailabilityZone</span>: <span style=color:#a6e22e>pulumi</span>.<span style=color:#a6e22e>String</span>(<span style=color:#e6db74>&#34;ap-northeast-1a&#34;</span>),
+			<span style=color:#a6e22e>Tags</span>: <span style=color:#a6e22e>pulumi</span>.<span style=color:#a6e22e>StringMap</span>{
+				<span style=color:#e6db74>&#34;Name&#34;</span>: <span style=color:#a6e22e>pulumi</span>.<span style=color:#a6e22e>String</span>(<span style=color:#e6db74>&#34;example_private_1a&#34;</span>),
+			},
+		})
+</code></pre></div><ol start=2>
+<li>GW関連のリソースを作成する<br>
+IGW/NAT GWと、NAT GWにアタッチするEIPを作成します。</li>
+</ol>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-go data-lang=go>		<span style=color:#a6e22e>eip</span>, <span style=color:#a6e22e>err</span> <span style=color:#f92672>:=</span> <span style=color:#a6e22e>ec2</span>.<span style=color:#a6e22e>NewEip</span>(<span style=color:#a6e22e>ctx</span>, <span style=color:#e6db74>&#34;eip&#34;</span>, <span style=color:#f92672>&amp;</span><span style=color:#a6e22e>ec2</span>.<span style=color:#a6e22e>EipArgs</span>{
+			<span style=color:#a6e22e>Vpc</span>: <span style=color:#a6e22e>pulumi</span>.<span style=color:#a6e22e>Bool</span>(<span style=color:#66d9ef>true</span>),
+		})
+		<span style=color:#66d9ef>if</span> <span style=color:#a6e22e>err</span> <span style=color:#f92672>!=</span> <span style=color:#66d9ef>nil</span> {
+			<span style=color:#66d9ef>return</span> <span style=color:#a6e22e>err</span>
+		}
+
+		<span style=color:#a6e22e>igw</span>, <span style=color:#a6e22e>err</span> <span style=color:#f92672>:=</span> <span style=color:#a6e22e>ec2</span>.<span style=color:#a6e22e>NewInternetGateway</span>(<span style=color:#a6e22e>ctx</span>, <span style=color:#e6db74>&#34;igw&#34;</span>, <span style=color:#f92672>&amp;</span><span style=color:#a6e22e>ec2</span>.<span style=color:#a6e22e>InternetGatewayArgs</span>{
+			<span style=color:#a6e22e>VpcId</span>: <span style=color:#a6e22e>vpc</span>.<span style=color:#a6e22e>ID</span>(),
+			<span style=color:#a6e22e>Tags</span>: <span style=color:#a6e22e>pulumi</span>.<span style=color:#a6e22e>StringMap</span>{
+				<span style=color:#e6db74>&#34;Name&#34;</span>: <span style=color:#a6e22e>pulumi</span>.<span style=color:#a6e22e>String</span>(<span style=color:#e6db74>&#34;example_igw&#34;</span>),
+			},
+		})
+		<span style=color:#66d9ef>if</span> <span style=color:#a6e22e>err</span> <span style=color:#f92672>!=</span> <span style=color:#66d9ef>nil</span> {
+			<span style=color:#66d9ef>return</span> <span style=color:#a6e22e>err</span>
+		}
+
+		<span style=color:#a6e22e>natgw</span>, <span style=color:#a6e22e>err</span> <span style=color:#f92672>:=</span> <span style=color:#a6e22e>ec2</span>.<span style=color:#a6e22e>NewNatGateway</span>(<span style=color:#a6e22e>ctx</span>, <span style=color:#e6db74>&#34;natgw&#34;</span>, <span style=color:#f92672>&amp;</span><span style=color:#a6e22e>ec2</span>.<span style=color:#a6e22e>NatGatewayArgs</span>{
+			<span style=color:#a6e22e>AllocationId</span>: <span style=color:#a6e22e>eip</span>.<span style=color:#a6e22e>ID</span>(),
+			<span style=color:#a6e22e>SubnetId</span>:     <span style=color:#a6e22e>pubSub1a</span>.<span style=color:#a6e22e>ID</span>(),
+		}, <span style=color:#a6e22e>pulumi</span>.<span style=color:#a6e22e>DependsOn</span>([]<span style=color:#a6e22e>pulumi</span>.<span style=color:#a6e22e>Resource</span>{<span style=color:#a6e22e>eip</span>}))
+		<span style=color:#66d9ef>if</span> <span style=color:#a6e22e>err</span> <span style=color:#f92672>!=</span> <span style=color:#66d9ef>nil</span> {
+			<span style=color:#66d9ef>return</span> <span style=color:#a6e22e>err</span>
+		}
+
+		<span style=color:#a6e22e>pubRoutaTable</span>, <span style=color:#a6e22e>err</span> <span style=color:#f92672>:=</span> <span style=color:#a6e22e>ec2</span>.<span style=color:#a6e22e>NewRouteTable</span>(<span style=color:#a6e22e>ctx</span>, <span style=color:#e6db74>&#34;pubRouteTable&#34;</span>, <span style=color:#f92672>&amp;</span><span style=color:#a6e22e>ec2</span>.<span style=color:#a6e22e>RouteTableArgs</span>{
+			<span style=color:#a6e22e>VpcId</span>: <span style=color:#a6e22e>vpc</span>.<span style=color:#a6e22e>ID</span>(),
+			<span style=color:#a6e22e>Tags</span>: <span style=color:#a6e22e>pulumi</span>.<span style=color:#a6e22e>StringMap</span>{
+				<span style=color:#e6db74>&#34;Name&#34;</span>: <span style=color:#a6e22e>pulumi</span>.<span style=color:#a6e22e>String</span>(<span style=color:#e6db74>&#34;example_route_table_public&#34;</span>),
+			},
+		})
+		<span style=color:#66d9ef>if</span> <span style=color:#a6e22e>err</span> <span style=color:#f92672>!=</span> <span style=color:#66d9ef>nil</span> {
+			<span style=color:#66d9ef>return</span> <span style=color:#a6e22e>err</span>
+		}
+</code></pre></div><ol start=3>
+<li>GW用のルートテーブルを作成する<br>
+ルートテーブルにて、各サブネットとInternet Gateway及びNAT Gatewayとの経路を用意します。</li>
+</ol>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-go data-lang=go><span style=color:#a6e22e>_</span>, <span style=color:#a6e22e>err</span> = <span style=color:#a6e22e>ec2</span>.<span style=color:#a6e22e>NewRoute</span>(<span style=color:#a6e22e>ctx</span>, <span style=color:#e6db74>&#34;pubRoute&#34;</span>, <span style=color:#f92672>&amp;</span><span style=color:#a6e22e>ec2</span>.<span style=color:#a6e22e>RouteArgs</span>{
+			<span style=color:#a6e22e>RouteTableId</span>:         <span style=color:#a6e22e>pubRoutaTable</span>.<span style=color:#a6e22e>ID</span>(),
+			<span style=color:#a6e22e>DestinationCidrBlock</span>: <span style=color:#a6e22e>pulumi</span>.<span style=color:#a6e22e>String</span>(<span style=color:#e6db74>&#34;0.0.0.0/0&#34;</span>),
+			<span style=color:#a6e22e>GatewayId</span>:            <span style=color:#a6e22e>igw</span>.<span style=color:#a6e22e>ID</span>(),
+		})
+		<span style=color:#66d9ef>if</span> <span style=color:#a6e22e>err</span> <span style=color:#f92672>!=</span> <span style=color:#66d9ef>nil</span> {
+			<span style=color:#66d9ef>return</span> <span style=color:#a6e22e>err</span>
+		}
+
+		<span style=color:#a6e22e>_</span>, <span style=color:#a6e22e>err</span> = <span style=color:#a6e22e>ec2</span>.<span style=color:#a6e22e>NewRouteTableAssociation</span>(<span style=color:#a6e22e>ctx</span>, <span style=color:#e6db74>&#34;pubRoute1a&#34;</span>, <span style=color:#f92672>&amp;</span><span style=color:#a6e22e>ec2</span>.<span style=color:#a6e22e>RouteTableAssociationArgs</span>{
+			<span style=color:#a6e22e>SubnetId</span>:     <span style=color:#a6e22e>pubSub1a</span>.<span style=color:#a6e22e>ID</span>(),
+			<span style=color:#a6e22e>RouteTableId</span>: <span style=color:#a6e22e>pubRoutaTable</span>.<span style=color:#a6e22e>ID</span>(),
+		})
+		<span style=color:#66d9ef>if</span> <span style=color:#a6e22e>err</span> <span style=color:#f92672>!=</span> <span style=color:#66d9ef>nil</span> {
+			<span style=color:#66d9ef>return</span> <span style=color:#a6e22e>err</span>
+		}
+
+		<span style=color:#a6e22e>_</span>, <span style=color:#a6e22e>err</span> = <span style=color:#a6e22e>ec2</span>.<span style=color:#a6e22e>NewRouteTableAssociation</span>(<span style=color:#a6e22e>ctx</span>, <span style=color:#e6db74>&#34;pubRoute1c&#34;</span>, <span style=color:#f92672>&amp;</span><span style=color:#a6e22e>ec2</span>.<span style=color:#a6e22e>RouteTableAssociationArgs</span>{
+			<span style=color:#a6e22e>SubnetId</span>:     <span style=color:#a6e22e>pubSub1c</span>.<span style=color:#a6e22e>ID</span>(),
+			<span style=color:#a6e22e>RouteTableId</span>: <span style=color:#a6e22e>pubRoutaTable</span>.<span style=color:#a6e22e>ID</span>(),
+		})
+		<span style=color:#66d9ef>if</span> <span style=color:#a6e22e>err</span> <span style=color:#f92672>!=</span> <span style=color:#66d9ef>nil</span> {
+			<span style=color:#66d9ef>return</span> <span style=color:#a6e22e>err</span>
+		}
+
+		<span style=color:#a6e22e>priRouteTable</span>, <span style=color:#a6e22e>err</span> <span style=color:#f92672>:=</span> <span style=color:#a6e22e>ec2</span>.<span style=color:#a6e22e>NewRouteTable</span>(<span style=color:#a6e22e>ctx</span>, <span style=color:#e6db74>&#34;priRouteTable&#34;</span>, <span style=color:#f92672>&amp;</span><span style=color:#a6e22e>ec2</span>.<span style=color:#a6e22e>RouteTableArgs</span>{
+			<span style=color:#a6e22e>VpcId</span>: <span style=color:#a6e22e>vpc</span>.<span style=color:#a6e22e>ID</span>(),
+			<span style=color:#a6e22e>Tags</span>: <span style=color:#a6e22e>pulumi</span>.<span style=color:#a6e22e>StringMap</span>{
+				<span style=color:#e6db74>&#34;Name&#34;</span>: <span style=color:#a6e22e>pulumi</span>.<span style=color:#a6e22e>String</span>(<span style=color:#e6db74>&#34;example_route_table_private&#34;</span>),
+			},
+		})
+		<span style=color:#66d9ef>if</span> <span style=color:#a6e22e>err</span> <span style=color:#f92672>!=</span> <span style=color:#66d9ef>nil</span> {
+			<span style=color:#66d9ef>return</span> <span style=color:#a6e22e>err</span>
+		}
+
+		<span style=color:#a6e22e>_</span>, <span style=color:#a6e22e>err</span> = <span style=color:#a6e22e>ec2</span>.<span style=color:#a6e22e>NewRoute</span>(<span style=color:#a6e22e>ctx</span>, <span style=color:#e6db74>&#34;priRoute&#34;</span>, <span style=color:#f92672>&amp;</span><span style=color:#a6e22e>ec2</span>.<span style=color:#a6e22e>RouteArgs</span>{
+			<span style=color:#a6e22e>RouteTableId</span>:         <span style=color:#a6e22e>priRouteTable</span>.<span style=color:#a6e22e>ID</span>(),
+			<span style=color:#a6e22e>DestinationCidrBlock</span>: <span style=color:#a6e22e>pulumi</span>.<span style=color:#a6e22e>String</span>(<span style=color:#e6db74>&#34;0.0.0.0/0&#34;</span>),
+			<span style=color:#a6e22e>NatGatewayId</span>:         <span style=color:#a6e22e>natgw</span>.<span style=color:#a6e22e>ID</span>(),
+		})
+		<span style=color:#66d9ef>if</span> <span style=color:#a6e22e>err</span> <span style=color:#f92672>!=</span> <span style=color:#66d9ef>nil</span> {
+			<span style=color:#66d9ef>return</span> <span style=color:#a6e22e>err</span>
+		}
+
+		<span style=color:#a6e22e>_</span>, <span style=color:#a6e22e>err</span> = <span style=color:#a6e22e>ec2</span>.<span style=color:#a6e22e>NewRouteTableAssociation</span>(<span style=color:#a6e22e>ctx</span>, <span style=color:#e6db74>&#34;priRoute1a&#34;</span>, <span style=color:#f92672>&amp;</span><span style=color:#a6e22e>ec2</span>.<span style=color:#a6e22e>RouteTableAssociationArgs</span>{
+			<span style=color:#a6e22e>SubnetId</span>:     <span style=color:#a6e22e>priSub1a</span>.<span style=color:#a6e22e>ID</span>(),
+			<span style=color:#a6e22e>RouteTableId</span>: <span style=color:#a6e22e>priRouteTable</span>.<span style=color:#a6e22e>ID</span>(),
+		})
+		<span style=color:#66d9ef>if</span> <span style=color:#a6e22e>err</span> <span style=color:#f92672>!=</span> <span style=color:#66d9ef>nil</span> {
+			<span style=color:#66d9ef>return</span> <span style=color:#a6e22e>err</span>
+		}
+</code></pre></div><ol start=4>
+<li>ALB関連リソースを作成する<br>
+ALB本体、listener、TG、ALBにアタッチするSGを作成します。</li>
+</ol>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-go data-lang=go>		<span style=color:#a6e22e>sgForALB</span>, <span style=color:#a6e22e>err</span> <span style=color:#f92672>:=</span> <span style=color:#a6e22e>ec2</span>.<span style=color:#a6e22e>NewSecurityGroup</span>(<span style=color:#a6e22e>ctx</span>, <span style=color:#e6db74>&#34;sgForALB&#34;</span>, <span style=color:#f92672>&amp;</span><span style=color:#a6e22e>ec2</span>.<span style=color:#a6e22e>SecurityGroupArgs</span>{
+			<span style=color:#a6e22e>Name</span>:  <span style=color:#a6e22e>pulumi</span>.<span style=color:#a6e22e>String</span>(<span style=color:#e6db74>&#34;example_sg_for_ALB&#34;</span>),
+			<span style=color:#a6e22e>VpcId</span>: <span style=color:#a6e22e>vpc</span>.<span style=color:#a6e22e>ID</span>(),
+			<span style=color:#a6e22e>Ingress</span>: <span style=color:#a6e22e>ec2</span>.<span style=color:#a6e22e>SecurityGroupIngressArray</span>{
+				<span style=color:#f92672>&amp;</span><span style=color:#a6e22e>ec2</span>.<span style=color:#a6e22e>SecurityGroupIngressArgs</span>{
+					<span style=color:#a6e22e>FromPort</span>: <span style=color:#a6e22e>pulumi</span>.<span style=color:#a6e22e>Int</span>(<span style=color:#ae81ff>80</span>),
+					<span style=color:#a6e22e>ToPort</span>:   <span style=color:#a6e22e>pulumi</span>.<span style=color:#a6e22e>Int</span>(<span style=color:#ae81ff>80</span>),
+					<span style=color:#a6e22e>Protocol</span>: <span style=color:#a6e22e>pulumi</span>.<span style=color:#a6e22e>String</span>(<span style=color:#e6db74>&#34;tcp&#34;</span>),
+					<span style=color:#a6e22e>CidrBlocks</span>: <span style=color:#a6e22e>pulumi</span>.<span style=color:#a6e22e>StringArray</span>{
+						<span style=color:#a6e22e>pulumi</span>.<span style=color:#a6e22e>String</span>(<span style=color:#e6db74>&#34;0.0.0.0/0&#34;</span>),
+					},
+				},
+			},
+			<span style=color:#a6e22e>Egress</span>: <span style=color:#a6e22e>ec2</span>.<span style=color:#a6e22e>SecurityGroupEgressArray</span>{
+				<span style=color:#f92672>&amp;</span><span style=color:#a6e22e>ec2</span>.<span style=color:#a6e22e>SecurityGroupEgressArgs</span>{
+					<span style=color:#a6e22e>FromPort</span>: <span style=color:#a6e22e>pulumi</span>.<span style=color:#a6e22e>Int</span>(<span style=color:#ae81ff>0</span>),
+					<span style=color:#a6e22e>ToPort</span>:   <span style=color:#a6e22e>pulumi</span>.<span style=color:#a6e22e>Int</span>(<span style=color:#ae81ff>0</span>),
+					<span style=color:#a6e22e>Protocol</span>: <span style=color:#a6e22e>pulumi</span>.<span style=color:#a6e22e>String</span>(<span style=color:#e6db74>&#34;-1&#34;</span>),
+					<span style=color:#a6e22e>CidrBlocks</span>: <span style=color:#a6e22e>pulumi</span>.<span style=color:#a6e22e>StringArray</span>{
+						<span style=color:#a6e22e>pulumi</span>.<span style=color:#a6e22e>String</span>(<span style=color:#e6db74>&#34;0.0.0.0/0&#34;</span>),
+					},
+				},
+			},
+		})
+		<span style=color:#66d9ef>if</span> <span style=color:#a6e22e>err</span> <span style=color:#f92672>!=</span> <span style=color:#66d9ef>nil</span> {
+			<span style=color:#66d9ef>return</span> <span style=color:#a6e22e>err</span>
+		}
+
+		<span style=color:#a6e22e>alb</span>, <span style=color:#a6e22e>err</span> <span style=color:#f92672>:=</span> <span style=color:#a6e22e>lb</span>.<span style=color:#a6e22e>NewLoadBalancer</span>(<span style=color:#a6e22e>ctx</span>, <span style=color:#e6db74>&#34;ALB&#34;</span>, <span style=color:#f92672>&amp;</span><span style=color:#a6e22e>lb</span>.<span style=color:#a6e22e>LoadBalancerArgs</span>{
+			<span style=color:#a6e22e>Name</span>:             <span style=color:#a6e22e>pulumi</span>.<span style=color:#a6e22e>String</span>(<span style=color:#e6db74>&#34;example&#34;</span>),
+			<span style=color:#a6e22e>LoadBalancerType</span>: <span style=color:#a6e22e>pulumi</span>.<span style=color:#a6e22e>String</span>(<span style=color:#e6db74>&#34;application&#34;</span>),
+			<span style=color:#a6e22e>SecurityGroups</span>: <span style=color:#a6e22e>pulumi</span>.<span style=color:#a6e22e>StringArray</span>{
+				<span style=color:#a6e22e>sgForALB</span>.<span style=color:#a6e22e>ID</span>(),
+			},
+			<span style=color:#a6e22e>Subnets</span>: <span style=color:#a6e22e>pulumi</span>.<span style=color:#a6e22e>StringArray</span>{
+				<span style=color:#a6e22e>pubSub1a</span>.<span style=color:#a6e22e>ID</span>(),
+				<span style=color:#a6e22e>pubSub1c</span>.<span style=color:#a6e22e>ID</span>(),
+			},
+			<span style=color:#a6e22e>Tags</span>: <span style=color:#a6e22e>pulumi</span>.<span style=color:#a6e22e>StringMap</span>{
+				<span style=color:#e6db74>&#34;Name&#34;</span>: <span style=color:#a6e22e>pulumi</span>.<span style=color:#a6e22e>String</span>(<span style=color:#e6db74>&#34;example&#34;</span>),
+			},
+		})
+		<span style=color:#66d9ef>if</span> <span style=color:#a6e22e>err</span> <span style=color:#f92672>!=</span> <span style=color:#66d9ef>nil</span> {
+			<span style=color:#66d9ef>return</span> <span style=color:#a6e22e>err</span>
+		}
+
+		<span style=color:#a6e22e>httpTG</span>, <span style=color:#a6e22e>err</span> <span style=color:#f92672>:=</span> <span style=color:#a6e22e>lb</span>.<span style=color:#a6e22e>NewTargetGroup</span>(<span style=color:#a6e22e>ctx</span>, <span style=color:#e6db74>&#34;httpTG&#34;</span>, <span style=color:#f92672>&amp;</span><span style=color:#a6e22e>lb</span>.<span style=color:#a6e22e>TargetGroupArgs</span>{
+			<span style=color:#a6e22e>Name</span>:     <span style=color:#a6e22e>pulumi</span>.<span style=color:#a6e22e>String</span>(<span style=color:#e6db74>&#34;HTTPTG&#34;</span>),
+			<span style=color:#a6e22e>Port</span>:     <span style=color:#a6e22e>pulumi</span>.<span style=color:#a6e22e>Int</span>(<span style=color:#ae81ff>80</span>),
+			<span style=color:#a6e22e>Protocol</span>: <span style=color:#a6e22e>pulumi</span>.<span style=color:#a6e22e>String</span>(<span style=color:#e6db74>&#34;HTTP&#34;</span>),
+			<span style=color:#a6e22e>VpcId</span>:    <span style=color:#a6e22e>vpc</span>.<span style=color:#a6e22e>ID</span>(),
+			<span style=color:#a6e22e>HealthCheck</span>: <span style=color:#a6e22e>lb</span>.<span style=color:#a6e22e>TargetGroupHealthCheckArgs</span>{
+				<span style=color:#a6e22e>Path</span>:     <span style=color:#a6e22e>pulumi</span>.<span style=color:#a6e22e>String</span>(<span style=color:#e6db74>&#34;/&#34;</span>),
+				<span style=color:#a6e22e>Matcher</span>:  <span style=color:#a6e22e>pulumi</span>.<span style=color:#a6e22e>String</span>(<span style=color:#e6db74>&#34;403&#34;</span>),
+				<span style=color:#a6e22e>Port</span>:     <span style=color:#a6e22e>pulumi</span>.<span style=color:#a6e22e>String</span>(<span style=color:#e6db74>&#34;80&#34;</span>),
+				<span style=color:#a6e22e>Protocol</span>: <span style=color:#a6e22e>pulumi</span>.<span style=color:#a6e22e>String</span>(<span style=color:#e6db74>&#34;HTTP&#34;</span>),
+			},
+		})
+		<span style=color:#66d9ef>if</span> <span style=color:#a6e22e>err</span> <span style=color:#f92672>!=</span> <span style=color:#66d9ef>nil</span> {
+			<span style=color:#66d9ef>return</span> <span style=color:#a6e22e>err</span>
+		}
+
+		<span style=color:#a6e22e>_</span>, <span style=color:#a6e22e>err</span> = <span style=color:#a6e22e>lb</span>.<span style=color:#a6e22e>NewListener</span>(<span style=color:#a6e22e>ctx</span>, <span style=color:#e6db74>&#34;listener&#34;</span>, <span style=color:#f92672>&amp;</span><span style=color:#a6e22e>lb</span>.<span style=color:#a6e22e>ListenerArgs</span>{
+			<span style=color:#a6e22e>LoadBalancerArn</span>: <span style=color:#a6e22e>alb</span>.<span style=color:#a6e22e>Arn</span>,
+			<span style=color:#a6e22e>Port</span>:            <span style=color:#a6e22e>pulumi</span>.<span style=color:#a6e22e>Int</span>(<span style=color:#ae81ff>80</span>),
+			<span style=color:#a6e22e>Protocol</span>:        <span style=color:#a6e22e>pulumi</span>.<span style=color:#a6e22e>String</span>(<span style=color:#e6db74>&#34;HTTP&#34;</span>),
+			<span style=color:#a6e22e>DefaultActions</span>: <span style=color:#a6e22e>lb</span>.<span style=color:#a6e22e>ListenerDefaultActionArray</span>{
+				<span style=color:#f92672>&amp;</span><span style=color:#a6e22e>lb</span>.<span style=color:#a6e22e>ListenerDefaultActionArgs</span>{
+					<span style=color:#a6e22e>Type</span>:           <span style=color:#a6e22e>pulumi</span>.<span style=color:#a6e22e>String</span>(<span style=color:#e6db74>&#34;forward&#34;</span>),
+					<span style=color:#a6e22e>TargetGroupArn</span>: <span style=color:#a6e22e>httpTG</span>.<span style=color:#a6e22e>Arn</span>,
+				},
+			},
+		}, <span style=color:#a6e22e>pulumi</span>.<span style=color:#a6e22e>DependsOn</span>([]<span style=color:#a6e22e>pulumi</span>.<span style=color:#a6e22e>Resource</span>{<span style=color:#a6e22e>alb</span>}))
+		<span style=color:#66d9ef>if</span> <span style=color:#a6e22e>err</span> <span style=color:#f92672>!=</span> <span style=color:#66d9ef>nil</span> {
+			<span style=color:#66d9ef>return</span> <span style=color:#a6e22e>err</span>
+		}
+</code></pre></div><ol start=5>
+<li>EC2関連リソースを作成する
+EC2本体、EC2にアタッチするSGを作成します。<br>
+また今回はUserDataを利用して、EC2起動時にApacheをインストール&起動させます。</li>
+</ol>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-go data-lang=go><span style=color:#a6e22e>sgForInstance</span>, <span style=color:#a6e22e>err</span> <span style=color:#f92672>:=</span> <span style=color:#a6e22e>ec2</span>.<span style=color:#a6e22e>NewSecurityGroup</span>(<span style=color:#a6e22e>ctx</span>, <span style=color:#e6db74>&#34;sgForInstance&#34;</span>, <span style=color:#f92672>&amp;</span><span style=color:#a6e22e>ec2</span>.<span style=color:#a6e22e>SecurityGroupArgs</span>{
+			<span style=color:#a6e22e>Name</span>:  <span style=color:#a6e22e>pulumi</span>.<span style=color:#a6e22e>String</span>(<span style=color:#e6db74>&#34;example_sg_for_instance&#34;</span>),
+			<span style=color:#a6e22e>VpcId</span>: <span style=color:#a6e22e>vpc</span>.<span style=color:#a6e22e>ID</span>(),
+			<span style=color:#a6e22e>Ingress</span>: <span style=color:#a6e22e>ec2</span>.<span style=color:#a6e22e>SecurityGroupIngressArray</span>{
+				<span style=color:#f92672>&amp;</span><span style=color:#a6e22e>ec2</span>.<span style=color:#a6e22e>SecurityGroupIngressArgs</span>{
+					<span style=color:#a6e22e>FromPort</span>: <span style=color:#a6e22e>pulumi</span>.<span style=color:#a6e22e>Int</span>(<span style=color:#ae81ff>80</span>),
+					<span style=color:#a6e22e>ToPort</span>:   <span style=color:#a6e22e>pulumi</span>.<span style=color:#a6e22e>Int</span>(<span style=color:#ae81ff>80</span>),
+					<span style=color:#a6e22e>Protocol</span>: <span style=color:#a6e22e>pulumi</span>.<span style=color:#a6e22e>String</span>(<span style=color:#e6db74>&#34;tcp&#34;</span>),
+					<span style=color:#a6e22e>SecurityGroups</span>: <span style=color:#a6e22e>pulumi</span>.<span style=color:#a6e22e>StringArray</span>{
+						<span style=color:#a6e22e>sgForALB</span>.<span style=color:#a6e22e>ID</span>(),
+					},
+				},
+			},
+			<span style=color:#a6e22e>Egress</span>: <span style=color:#a6e22e>ec2</span>.<span style=color:#a6e22e>SecurityGroupEgressArray</span>{
+				<span style=color:#f92672>&amp;</span><span style=color:#a6e22e>ec2</span>.<span style=color:#a6e22e>SecurityGroupEgressArgs</span>{
+					<span style=color:#a6e22e>FromPort</span>: <span style=color:#a6e22e>pulumi</span>.<span style=color:#a6e22e>Int</span>(<span style=color:#ae81ff>0</span>),
+					<span style=color:#a6e22e>ToPort</span>:   <span style=color:#a6e22e>pulumi</span>.<span style=color:#a6e22e>Int</span>(<span style=color:#ae81ff>0</span>),
+					<span style=color:#a6e22e>Protocol</span>: <span style=color:#a6e22e>pulumi</span>.<span style=color:#a6e22e>String</span>(<span style=color:#e6db74>&#34;-1&#34;</span>),
+					<span style=color:#a6e22e>CidrBlocks</span>: <span style=color:#a6e22e>pulumi</span>.<span style=color:#a6e22e>StringArray</span>{
+						<span style=color:#a6e22e>pulumi</span>.<span style=color:#a6e22e>String</span>(<span style=color:#e6db74>&#34;0.0.0.0/0&#34;</span>),
+					},
+				},
+			},
+		})
+		<span style=color:#66d9ef>if</span> <span style=color:#a6e22e>err</span> <span style=color:#f92672>!=</span> <span style=color:#66d9ef>nil</span> {
+			<span style=color:#66d9ef>return</span> <span style=color:#a6e22e>err</span>
+		}
+
+		<span style=color:#a6e22e>f</span>, <span style=color:#a6e22e>err</span> <span style=color:#f92672>:=</span> <span style=color:#a6e22e>os</span>.<span style=color:#a6e22e>Open</span>(<span style=color:#e6db74>&#34;install_apache.sh&#34;</span>)
+		<span style=color:#66d9ef>if</span> <span style=color:#a6e22e>err</span> <span style=color:#f92672>!=</span> <span style=color:#66d9ef>nil</span> {
+			<span style=color:#66d9ef>return</span> <span style=color:#a6e22e>err</span>
+		}
+
+		<span style=color:#a6e22e>b</span>, <span style=color:#a6e22e>err</span> <span style=color:#f92672>:=</span> <span style=color:#a6e22e>ioutil</span>.<span style=color:#a6e22e>ReadAll</span>(<span style=color:#a6e22e>f</span>)
+		<span style=color:#66d9ef>if</span> <span style=color:#a6e22e>err</span> <span style=color:#f92672>!=</span> <span style=color:#66d9ef>nil</span> {
+			<span style=color:#66d9ef>return</span> <span style=color:#a6e22e>err</span>
+		}
+
+		<span style=color:#a6e22e>enc</span> <span style=color:#f92672>:=</span> <span style=color:#a6e22e>base64</span>.<span style=color:#a6e22e>StdEncoding</span>.<span style=color:#a6e22e>EncodeToString</span>(<span style=color:#a6e22e>b</span>)
+
+		<span style=color:#a6e22e>ins</span>, <span style=color:#a6e22e>err</span> <span style=color:#f92672>:=</span> <span style=color:#a6e22e>ec2</span>.<span style=color:#a6e22e>NewInstance</span>(<span style=color:#a6e22e>ctx</span>, <span style=color:#e6db74>&#34;instance&#34;</span>, <span style=color:#f92672>&amp;</span><span style=color:#a6e22e>ec2</span>.<span style=color:#a6e22e>InstanceArgs</span>{
+			<span style=color:#a6e22e>Ami</span>:          <span style=color:#a6e22e>pulumi</span>.<span style=color:#a6e22e>String</span>(<span style=color:#e6db74>&#34;ami-0992fc94ca0f1415a&#34;</span>),
+			<span style=color:#a6e22e>InstanceType</span>: <span style=color:#a6e22e>pulumi</span>.<span style=color:#a6e22e>String</span>(<span style=color:#e6db74>&#34;t2.micro&#34;</span>),
+			<span style=color:#a6e22e>SubnetId</span>:     <span style=color:#a6e22e>priSub1a</span>.<span style=color:#a6e22e>ID</span>(),
+			<span style=color:#a6e22e>VpcSecurityGroupIds</span>: <span style=color:#a6e22e>pulumi</span>.<span style=color:#a6e22e>StringArray</span>{
+				<span style=color:#a6e22e>sgForInstance</span>.<span style=color:#a6e22e>ID</span>(),
+			},
+			<span style=color:#a6e22e>UserDataBase64</span>: <span style=color:#a6e22e>pulumi</span>.<span style=color:#a6e22e>String</span>(<span style=color:#a6e22e>enc</span>),
+		})
+		<span style=color:#66d9ef>if</span> <span style=color:#a6e22e>err</span> <span style=color:#f92672>!=</span> <span style=color:#66d9ef>nil</span> {
+			<span style=color:#66d9ef>return</span> <span style=color:#a6e22e>err</span>
+		}
+
+		<span style=color:#a6e22e>_</span>, <span style=color:#a6e22e>err</span> = <span style=color:#a6e22e>lb</span>.<span style=color:#a6e22e>NewTargetGroupAttachment</span>(<span style=color:#a6e22e>ctx</span>, <span style=color:#e6db74>&#34;TGattach&#34;</span>, <span style=color:#f92672>&amp;</span><span style=color:#a6e22e>lb</span>.<span style=color:#a6e22e>TargetGroupAttachmentArgs</span>{
+			<span style=color:#a6e22e>TargetGroupArn</span>: <span style=color:#a6e22e>httpTG</span>.<span style=color:#a6e22e>Arn</span>,
+			<span style=color:#a6e22e>TargetId</span>:       <span style=color:#a6e22e>ins</span>.<span style=color:#a6e22e>ID</span>(),
+			<span style=color:#a6e22e>Port</span>:           <span style=color:#a6e22e>pulumi</span>.<span style=color:#a6e22e>Int</span>(<span style=color:#ae81ff>80</span>),
+		})
+		<span style=color:#66d9ef>if</span> <span style=color:#a6e22e>err</span> <span style=color:#f92672>!=</span> <span style=color:#66d9ef>nil</span> {
+			<span style=color:#66d9ef>return</span> <span style=color:#a6e22e>err</span>
+		}
+</code></pre></div><h2 id=goで書いてみての感想>Goで書いてみての感想</h2>
+<p>Terraformと同じような感覚で書けるので、Terraform書ける人はパッと書けるなと思いました。<br>
+インフラ構築を汎用言語で選択する場合、フロントエンドやバックエンドで利用している言語と同じ言語を使えるので、システム全体の統一性が上がるのと学習コストの圧縮ができるのかなあと感じました。<br>
+（個人的にはTerraformのシンプルさが好きなので、汎用言語を選択することで大きなメリットが出ない限りは、Terraformでもいいのでは？と思いますが）<br>
+今回、main関数に全部ベタで書いたので、次回はTerraformのモジュールと同じ分け方で関数化してみようと思います。</p>
+</section>
+<footer class=post-tags>
+<a href=https://guranytou.github.io/blog/tags/pulumi>Pulumi</a>
+<a href=https://guranytou.github.io/blog/tags/aws>AWS</a>
+<a href=https://guranytou.github.io/blog/tags/go>Go</a>
+</footer>
+<nav class=post-nav>
+<a class=next href=https://guranytou.github.io/blog/post/20220523-create-aws-resource-use-pulumi-1/><span>Pulumiを利用してAWS上でWebサーバ一式を立ててみた その１</span><span>→</span></a>
+</nav>
+</article>
+</main>
+<footer class=footer>
+<p>&copy; 2022 <a href=https://guranytou.github.io/blog/>しゅがーぽっと</a></p>
+<p>Powered by <a href=https://gohugo.io/ rel=noopener target=_blank>Hugo️️</a>️</p>
+<p>
+<a href=https://github.com/nanxiaobei/hugo-paper rel=noopener target=_blank>Paper 5.0</a>
+</p>
+</footer>
+</body>
+</html>
