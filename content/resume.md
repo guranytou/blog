@@ -5,7 +5,7 @@
 | Name | 山吹明里（Akari Yamabuki） |
 | Github | guranytou |
 | Blog | https://guranytou.github.io/blog/ |
-| Zenn | guranytou |
+| Zenn | https://zenn.dev/guranytou |
 
 ## 職務経歴
 ### 株式会社クラフトマンソフトウェア（2021年4月 - 2022年6月）
