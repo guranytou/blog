@@ -1,4 +1,14 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>しゅがーぽっと</title><link>https://guranytou.github.io/blog/</link><description>Recent content on しゅがーぽっと</description><generator>Hugo -- gohugo.io</generator><language>ja-jp</language><lastBuildDate>Fri, 27 May 2022 00:33:09 +0900</lastBuildDate><atom:link href="https://guranytou.github.io/blog/index.xml" rel="self" type="application/rss+xml"/><item><title>AIZU ONLINE JUDGE ITP1の1_1-Aから1_10-DまでGoで解いた</title><link>https://guranytou.github.io/blog/post/20220829-aoj-itp/</link><pubDate>Fri, 27 May 2022 00:33:09 +0900</pubDate><guid>https://guranytou.github.io/blog/post/20220829-aoj-itp/</guid><description>はじめに 「エンジニア、アルゴリズムをサラッとコーディングできた方が良いのでは？」という思考があるので、最近競プロをちょこちょこやっています。
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>しゅがーぽっと</title><link>https://guranytou.github.io/blog/</link><description>Recent content on しゅがーぽっと</description><generator>Hugo -- gohugo.io</generator><language>ja-jp</language><lastBuildDate>Thu, 05 Jan 2023 17:10:00 +0900</lastBuildDate><atom:link href="https://guranytou.github.io/blog/index.xml" rel="self" type="application/rss+xml"/><item><title>去年の振り返りと今年の目標</title><link>https://guranytou.github.io/blog/post/20230105-summarize/</link><pubDate>Thu, 05 Jan 2023 17:10:00 +0900</pubDate><guid>https://guranytou.github.io/blog/post/20230105-summarize/</guid><description>2021年の年末に書いてたので今年もブログでまとめておこうかなという次第。
+2022年の振り返り 2022年の目標の振り返り Goをもっと勉強する 多少書いたり読めるようになった AWS SAAを取得する 優先順位が落ちてしまったので着手せず k8sを少しずつ勉強し始める CKA取得目指して勉強し始めた 思いついた構成をAWSで色々作ってみる 構成は色々作れなかったけど、Pulumi使ってみたりした 記事を10本以上/年 書く 9本書いてた。惜しい 本をもう少し読む 12月から読み始めたので、今年はもっと読みたいなあ 仕事など TerraformとAWSをゴリゴリやれてたけど、色々あって6月で退職&amp;amp;しばらくお休みしてました。
+メンタルヘルスに来ると、メンタルより先に身体に来るのでメンタルはめちゃくちゃ元気です。
+ありがたいことにとある会社に拾っていただけたので、4/1からまた働いていきます。
+技術 Go書いたりk8sの勉強したりしてました。
+あとアルゴリズムを知って書けた方が個人的にはいいなーと感じたので、競技プログラミングに挑戦し始めました。
+ゲーム FF14で相変わらず零式やってます。あとプテラノドンマウント欲しくてコツコツやり始め、ギャザラーは全ジョブ終わりました。
+今年の目標 去年は体調回復のために好きに暮らしていたので、今年は勉学と体力作りを頑張っていきたいな〜と思うなどしています。
+技術 次の仕事ではバックエンドエンジニアになるので、まずは仕事の中で一生懸命頑張っていこうと思ってます。
+個人としてもう少しやっていきたいのは以下のことかなと。
+CKAの取得 インフラ系OSSのコードを読む習慣をつける 人のコードを読む力をつけたい。苦手なので…… その他 本を100冊読む 技術書以外にも小説や新書問わず読んでいきたい 英語学習の習慣を戻す 体調崩した時にその習慣も吹っ飛んでしまったので 雀魂で雀豪になる 筋トレを毎日する&amp;amp;散歩を継続して行って最終的にランニングできるようになる</description></item><item><title>AIZU ONLINE JUDGE ITP1の1_1-Aから1_10-DまでGoで解いた</title><link>https://guranytou.github.io/blog/post/20220829-aoj-itp/</link><pubDate>Fri, 27 May 2022 00:33:09 +0900</pubDate><guid>https://guranytou.github.io/blog/post/20220829-aoj-itp/</guid><description>はじめに 「エンジニア、アルゴリズムをサラッとコーディングできた方が良いのでは？」という思考があるので、最近競プロをちょこちょこやっています。
 この記事にて、AOJのITPを1_10-Dまで解くといいよと書かれていたので実際にやってみました。
 本当は真面目に競技プログラミングに取り組むのであればC++やPythonがいいんだろうな〜と思いつつ、今はまだコーディング力を向上させたいだけなので勉強中のGoで挑戦しました。
 ITPのリザルトを見るとGoでやってる人がほぼいないことが分かった&amp;amp;せっかく最後まで取り組んだので、自分が書いたコードをブログに載せることにしました。 もし「もっとこう書いた方がGoっぽいよ！」や「こうした方が計算量やI/O少ないよ！」などありましたら、自分のTwitterか以下のリポジトリまでお願いします。
