@@ -9,10 +9,10 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v3
         with:
           node-version: '14'
       - run: |
@@ -20,7 +20,7 @@ jobs:
           npm install
           npm i -g md-to-pdf
           md-to-pdf content/resume.md
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v3
         with:
           name: resume
           path: content/resume.pdf
