@@ -28,7 +28,7 @@
 コード package main import ( &#34;bufio&#34; &#34;fmt&#34; &#34;math/rand&#34; &#34;os&#34; &#34;strings&#34; &#34;time&#34; ) func main() { scanner := bufio.NewScanner(os.Stdin) fmt.Print(&#34;文字列を入力してください: &#34;) scanner.Scan() str := scanner.Text() s := rand.NewSource(time.Now().UnixNano()) r := rand.New(s) n := byte(r.Intn(25)) convert := caesar_cipher(str, n) fmt.Println(str, &#34;を&#34;, n, &#34;文字ずらすと&#34;, convert) } func caesar_cipher(str string, n byte) string { convert := make([]string, len(str)) for i := 0; i < len(str); i++ { var b byte if str[i] >= 'A' && str[i] <= 'Z' { if str[i]+n > 'Z' { b = 'A' + (str[i] + n - 'Z') - 1 } else { b = str[i] + n } } else if str[i] >= 'a' && str[i] <= 'z' { if str[i]+n > 'z' { b = 'a' + (str[i] + n - 'z') - 1 } else { b = str[i] + n } } else { b = str[i] } convert[i] = string(b) } return strings."><meta itemprop=datePublished content="2023-09-10T15:39:48+09:00">
 <meta itemprop=dateModified content="2023-09-10T15:39:48+09:00">
 <meta itemprop=wordCount content="160">
-<meta itemprop=keywords content=",,">
+<meta itemprop=keywords content="Go,">
 <meta name=twitter:card content="summary">
 <meta name=twitter:title content="Goでシーザー暗号を実装してみた">
 <meta name=twitter:description content="まえがき RFCを見ながらMD5を実装しようかなと思ったけど、その前にGoでシーザー暗号を実装してみようかなと思ってやってみた記事です。
@@ -117,8 +117,7 @@
 <code>n := byte(r.Intn(25))</code>にして足すようにしたけど他にいい方法あるのかなあ。</p>
 </section>
 <footer class=post-tags>
-<a href=https://guranytou.github.io/blog/tags/></a>
-<a href=https://guranytou.github.io/blog/tags/></a>
+<a href=https://guranytou.github.io/blog/tags/go>Go</a>
 </footer>
 <nav class=post-nav>
 <a class=next href=https://guranytou.github.io/blog/post/20230105-summarize/><span>去年の振り返りと今年の目標</span><span>→</span></a>
