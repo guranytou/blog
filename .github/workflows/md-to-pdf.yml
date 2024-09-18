@@ -16,9 +16,13 @@ jobs:
         with:
           node-version: '18'
       - run: |
+          echo "Installing fonts-noto"
           sudo apt install fonts-noto
+          echo "npm install"
           npm install
+          echo "npm i -g md-to-pdf"
           npm i -g md-to-pdf
+          echo "md-to-pdf content/resume.md"
           md-to-pdf content/resume.md
       - uses: actions/upload-artifact@v3
         with:
