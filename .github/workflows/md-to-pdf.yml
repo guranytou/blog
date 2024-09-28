@@ -6,6 +6,7 @@ on:
       - main
     paths:
       - "content/resume.md"
+      - ".github/workflows/md-to-pdf.yml"
 
 jobs:
   build:
