@@ -1,0 +1,8 @@
+baseURL = 'https://guranytou.github.io/blog/'
+languageCode = 'ja_jp'
+title = 'しゅがーぽっと'
+theme = 'paper'
+
+[params]
+twitter = 'gurany_tou'
+github = 'guranytou'

@@ -1,0 +1,33 @@
+name: md-to-pdf
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "content/resume.md"
+      - ".github/workflows/md-to-pdf.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+      - run: |
+          sudo apt install fonts-noto
+          npm i -g md-to-pdf
+          md-to-pdf content/resume.md --launch-options '{"args":["--no-sandbox","--disable-setuid-sandbox"]}'
+        env:
+          # Puppeteer needs no-sandbox on GitHub-hosted runners
+          PUPPETEER_NO_SANDBOX: 'true'
+      - uses: actions/upload-artifact@v4
+        with:
+          name: resume
+          path: content/resume.pdf
